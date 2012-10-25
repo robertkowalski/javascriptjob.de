@@ -3,10 +3,22 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "make"
   },
   "dependencies": {
     "express": "3.0.0",
-    "jade": "*"
-  }
+    "jade": "*",
+    "validator": "0.4.11",
+    "flashify": "0.1.0"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "sinon-chai": "*",
+    "sinon": "*",
+    "nock": "0.13.4",
+    "supertest": "0.4.x"
+  },
+  "engine": "node 0.8.x"
 }
