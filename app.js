@@ -1,10 +1,10 @@
 var express = require('express'),
-    routes = require('./app/routes'),
-    user = require('./app/routes/user'),
+    Resource = require('express-resource'),
+    controllers = require('./app/controllers'),
     http = require('http'),
-    path = require('path');
-
-var i18next = require('i18next');
+    path = require('path'),
+    mongoose = require('mongoose'),
+    i18next = require('i18next');
 
 var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
 
@@ -13,7 +13,8 @@ i18next.init({
   ns: { namespaces: ['common'], defaultNs: 'common'},
   resGetPath: 'app/locales/__lng__/__ns__.json',
   debug: debug
-}); // for options see i18next-node gh-page
+});
+
 var app = module.exports = express();
 
 app.configure(function() {
@@ -44,6 +45,7 @@ i18next.serveWebTranslate(app, {
 
 app.configure('development', function() {
   app.use(express.errorHandler());
+  app.set('mongoDb', 'mongodb://localhost/jsjobstest');
 });
 
 app.configure('test', function() {
@@ -51,8 +53,14 @@ app.configure('test', function() {
   app.set('mongoDb', 'mongodb://localhost/jsjobstest');
 });
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+/* DB / Models */
+if (!mongoose.connection.db) {
+  var db = mongoose.connect(app.get('mongoDb'));
+  db.model('Job', require('./app/models/job'));
+}
+
+/* Routing */
+app.resource('jobs', controllers.jobs);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));

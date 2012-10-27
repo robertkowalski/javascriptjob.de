@@ -1,7 +1,6 @@
 var app = require('../../app'),
     mongoose = require('mongoose');
 
-var db = mongoose.connect(app.get('mongoDb'));
 var JobSchema,
     Job;
 
@@ -13,9 +12,8 @@ JobSchema = new mongoose.Schema({
   description: {type: String, required: true},
   howtoapply: {type: String, required: true},
   date: {type: Date, required: true},
-  visible: {type: Boolean, required: true}
+  visible: {type: Boolean, default: false}
 });
 
-Job = db.model('Job', JobSchema);
 
-module.exports = Job;
+module.exports = JobSchema;

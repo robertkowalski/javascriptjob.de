@@ -1,10 +1,31 @@
 process.env.NODE_ENV = 'test';
 
 var expect = require('chai').expect,
-    Job = require('../app/models/job'),
-    app = require('../app');
+    mongoose = require('mongoose'),
+    Job = mongoose.model('Job'),
+    app = require('../../app');
 
 describe('Job', function(done) {
+
+  it('if "visible" is not provided, it is false', function(done) {
+    var job = new Job({
+      jobtitle: 'foo',
+      company: 'barcompany',
+      website: 'website',
+      location: 'moon',
+      description: 'best jobs on the moon',
+      howtoapply: 'send a pidgin!',
+      date: new Date()
+    });
+
+    job.save(function(err, product) {
+      if (err) {
+        console.error(err);
+      }
+      expect(product.visible).to.equal(false);
+      done();
+    });
+  });
 
   describe('required fields', function(done) {
     it('validates required fields', function(done) {
@@ -45,12 +66,6 @@ describe('Job', function(done) {
               message: 'Validator "required" failed for path jobtitle',
               name: 'ValidatorError',
               path: 'jobtitle',
-              type: 'required'
-            },
-            visible: {
-              message: 'Validator "required" failed for path visible',
-              name: 'ValidatorError',
-              path: 'visible',
               type: 'required'
             },
             date: {
