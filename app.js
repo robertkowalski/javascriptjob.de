@@ -24,6 +24,11 @@ app.configure('development', function() {
   app.use(express.errorHandler());
 });
 
+app.configure('test', function() {
+  app.use(express.errorHandler());
+  app.set('mongoDb', 'mongodb://localhost/jsjobstest');
+});
+
 app.get('/', routes.index);
 app.get('/users', user.list);
 
