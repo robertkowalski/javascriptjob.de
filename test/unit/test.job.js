@@ -5,6 +5,8 @@ var expect = require('chai').expect,
     Job = mongoose.model('Job'),
     app = require('../../app');
 
+require('../helper');
+
 describe('Job', function(done) {
 
   it('if "visible" is not provided, it is false', function(done) {
@@ -24,6 +26,46 @@ describe('Job', function(done) {
       }
       expect(product.visible).to.equal(false);
       done();
+    });
+  });
+
+  it('every job gets an id that is rising', function(done) {
+    var c;
+    Job.count({}, function(err, count) {
+      c = count;
+      var job = new Job({
+        jobtitle: 'foo',
+        company: 'barcompany',
+        website: 'website',
+        location: 'moon',
+        description: 'best jobs on the moon',
+        howtoapply: 'send a pidgin!',
+        date: new Date()
+      });
+
+      var job2 = new Job({
+        jobtitle: 'foo',
+        company: 'barcompany',
+        website: 'website',
+        location: 'moon',
+        description: 'best jobs on the moon',
+        howtoapply: 'send a pidgin!',
+        date: new Date()
+      });
+
+      job.save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.id).to.equal(c);
+        job2.save(function(err, job) {
+          if (err) {
+            console.error(err);
+          }
+          expect(job.id).to.equal(c + 1);
+          done();
+        });
+      });
     });
   });
 
@@ -73,7 +115,7 @@ describe('Job', function(done) {
               name: 'ValidatorError',
               path: 'date',
               type: 'required'
-            },
+            }
         };
         expect(err.errors).to.eql(errors);
         done();

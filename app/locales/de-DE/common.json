@@ -10,5 +10,6 @@
     "Validator \"required\" failed for path location": "Bitte geben Sie einen Einsatzort an.",
     "Validator \"required\" failed for path website": "Bitte geben Sie eine Webseite an.",
     "Validator \"required\" failed for path company": "Bitte geben Sie ein Unternehmen an.",
-    "Validator \"required\" failed for path jobtitle": "Bitte geben Sie eine Jobbezeichnung an."
+    "Validator \"required\" failed for path jobtitle": "Bitte geben Sie eine Jobbezeichnung an.",
+    "Create new job" : "Neuen Job anlegen"
 }

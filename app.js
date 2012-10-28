@@ -4,7 +4,8 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     mongoose = require('mongoose'),
-    i18next = require('i18next');
+    i18next = require('i18next'),
+    flashify = require('flashify');
 
 var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
 
@@ -25,10 +26,10 @@ app.configure(function() {
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(i18next.handle);
-
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
+  app.use(flashify);
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -44,11 +45,13 @@ i18next.serveWebTranslate(app, {
 });
 
 app.configure('development', function() {
+  app.locals.pretty = true;
   app.use(express.errorHandler());
   app.set('mongoDb', 'mongodb://localhost/jsjobstest');
 });
 
 app.configure('test', function() {
+  app.locals.pretty = true;
   app.use(express.errorHandler());
   app.set('mongoDb', 'mongodb://localhost/jsjobstest');
 });
@@ -61,6 +64,8 @@ if (!mongoose.connection.db) {
 
 /* Routing */
 app.resource('jobs', controllers.jobs);
+app.get('/', controllers.jobs.index);
+
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));
