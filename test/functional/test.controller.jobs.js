@@ -4,6 +4,8 @@ var expect = require('chai').expect,
     request = require('supertest'),
     app = require('../../app');
 
+var agent = require('superagent');
+
 describe('jobs', function(done) {
 
   describe('POST /jobs #=> create', function(done) {
@@ -17,7 +19,27 @@ describe('jobs', function(done) {
           if (err) {
             return done(err);
           }
-          expect(res.text).to.contain('forum index');
+          expect(res.text).to.contain('Moved Temporarily. Redirecting to /jobs/');
+          done();
+        });
+    });
+
+    it('should redirect to the created job if a valid job was posted', function(done) {
+      request(app)
+        .post('/jobs')
+        .send({
+          jobtitle: 'Gelötsrockstar',
+          company: 'Gelötsagentur',
+          website: 'http://foo.de',
+          location: 'Hamburg',
+          description: 'lirum larum',
+          howtoapply: 'by mail',
+        })
+        .end(function(err, res){
+          if (err) {
+            return done(err);
+          }
+          expect(res.text).to.contain('Moved Temporarily. Redirecting to /jobs/0');
           done();
         });
     });
@@ -32,7 +54,7 @@ describe('jobs', function(done) {
           if (err) {
             return done(err);
           }
-          expect(res.text).to.contain('forum index');
+          expect(res.text).to.contain('JavaScript Jobs');
           done();
         });
     });
@@ -47,7 +69,7 @@ describe('jobs', function(done) {
           if (err) {
             return done(err);
           }
-          expect(res.text).to.contain('forum index');
+          expect(res.text).to.contain('JavaScript Jobs');
           done();
         });
     });

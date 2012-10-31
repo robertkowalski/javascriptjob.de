@@ -11,7 +11,7 @@ DELETE /jobs/1      #=> destroy
 */
 
 exports.index = function(req, res){
-  res.send('forum index');
+  res.render('index');
 };
 
 exports.new = function(req, res){
@@ -38,16 +38,14 @@ exports.create = function(req, res){
     if (err) {
       Object.keys(err.errors).forEach(function(key) {
         val = err.errors[key];
-        req.flash(val.message);
+        req.flash('error', val.message);
       });
 
-      res.render('jobs/new');
+      res.redirect('jobs/new');
     } else {
-      res.redirect('jobs/' + id)
+      res.redirect('jobs/' + job.id)
     }
   });
-
-  res.send('create forum');
 };
 
 exports.show = function(req, res){

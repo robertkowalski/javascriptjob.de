@@ -3,4 +3,13 @@ html
   head
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+
+    h1 JavaScript Jobs
+    if (flash.error != undefined)
+      div(id='messages')
+        ul.error
+          each error in flash.error
+            li= i18n.t(error)
+
     block content
+
