@@ -4,12 +4,12 @@ var expect = require('chai').expect,
     request = require('supertest'),
     app = require('../../app');
 
-var agent = require('superagent');
+require('../helper');
 
 describe('jobs', function(done) {
 
   describe('POST /jobs #=> create', function(done) {
-    it('should re-render if the job could not created', function(done) {
+    it('should redirect to jobs/new if the job could not created', function(done) {
       request(app)
         .post('/jobs')
         .send({
@@ -19,7 +19,7 @@ describe('jobs', function(done) {
           if (err) {
             return done(err);
           }
-          expect(res.text).to.contain('Moved Temporarily. Redirecting to /jobs/');
+          expect(res.text).to.contain('Moved Temporarily. Redirecting to /jobs/new');
           done();
         });
     });
@@ -33,7 +33,7 @@ describe('jobs', function(done) {
           website: 'http://foo.de',
           location: 'Hamburg',
           description: 'lirum larum',
-          howtoapply: 'by mail',
+          howtoapply: 'by mail'
         })
         .end(function(err, res){
           if (err) {
