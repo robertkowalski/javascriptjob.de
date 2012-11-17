@@ -4,9 +4,7 @@ var expect = require('chai').expect,
     request = require('superagent'),
     app = require('../../app');
 
-
 var helper = require('../helper');
-
 
 describe('Creation of Jobs', function(done) {
     it('should show flash error messages when invalid data is submitted', function(done) {

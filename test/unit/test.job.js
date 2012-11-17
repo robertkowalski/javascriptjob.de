@@ -9,6 +9,105 @@ require('../helper');
 
 describe('Job', function(done) {
 
+  describe('Job sanitizes its input', function(done) {
+
+    it('sanitizes ALL the string-inputs', function(done) {
+      var xssValues = {};
+
+      Object.keys(Job.schema.paths).forEach(function(value) {
+        if (Job.schema.paths[value].instance == 'String') {
+          xssValues[value] = '<script>alert("You have to talk to mister banana");</script>';
+        }
+        xssValues.date = new Date()
+      });
+
+      var job = new Job(xssValues);
+      job.save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+
+        Object.keys(Job.schema.paths).forEach(function(value) {
+          typeof job[value] == 'string' &&
+            expect(job[value]).to.equal('[removed]alert&#40;"You have to talk to mister banana"&#41;;[removed]');
+        });
+        done();
+      });
+    });
+
+    function createXssJob() {
+      return new Job({
+        jobtitle: '<script>alert(0);</script>',
+        company: '<script>alert(1);</script>',
+        website: '<script>alert(2);</script>',
+        location: '<script>alert(3);</script>',
+        description: '<script>alert("best job on the moon");</script>',
+        howtoapply: '<script>alert("You have to talk to mister banana");</script>',
+        date: new Date()
+      });
+    }
+
+    it('field jobtitle: it sanitizes its input', function(done) {
+      createXssJob().save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.jobtitle).to.not.equal('<script>alert(0);</script>');
+        done();
+      });
+    });
+
+    it('field company: it sanitizes its input', function(done) {
+      createXssJob().save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.company).to.not.equal('<script>alert(1);</script>');
+        done();
+      });
+    });
+
+    it('field website: it sanitizes its input', function(done) {
+      createXssJob().save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.website).to.not.equal('<script>alert(2);</script>');
+        done();
+      });
+    });
+
+    it('field location: it sanitizes its input', function(done) {
+      createXssJob().save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.location).to.not.equal('<script>alert(3);</script>');
+        done();
+      });
+    });
+
+    it('field description: it sanitizes its input', function(done) {
+      createXssJob().save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.description).to.not.equal('<script>alert("best job on the moon");</script>');
+        done();
+      });
+    });
+
+    it('field howtoapply: it sanitizes its input', function(done) {
+      createXssJob().save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.howtoapply).to.not.equal('<script>alert("You have to talk to mister banana");</script>');
+        done();
+      });
+    });
+  });
+
   it('if "visible" is not provided, it is false', function(done) {
     var job = new Job({
       jobtitle: 'foo',
@@ -20,11 +119,11 @@ describe('Job', function(done) {
       date: new Date()
     });
 
-    job.save(function(err, product) {
+    job.save(function(err, job) {
       if (err) {
         console.error(err);
       }
-      expect(product.visible).to.equal(false);
+      expect(job.visible).to.equal(false);
       done();
     });
   });
