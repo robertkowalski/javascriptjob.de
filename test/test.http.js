@@ -15,7 +15,7 @@ describe('app should return http status codes', function(done) {
   });
 
   describe('if the home was requested', function(done) {
-    it('should respond with http status 200', function() {
+    it('should respond with http status 200', function(done) {
       request(app)
         .get('/')
         .expect(200, done);
