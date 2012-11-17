@@ -5,13 +5,11 @@ var expect = require('chai').expect,
     Job = mongoose.model('Job'),
     app = require('../../app'),
     queries = require('../../app/helper/queries'),
-    query,
-    job;
+    query;
 
 var helper = require('../helper');
 
 describe('helper/queries/findAllVisibleOrderedByDate', function(done) {
-
   beforeEach(function(done) {
     query = queries.findAllVisibleOrderedByDate;
     /* create2 jobs - 1 not visible, 2 visible */
@@ -39,34 +37,22 @@ describe('helper/queries/findAllVisibleOrderedByDate', function(done) {
       done();
     });
   });
+});
 
-  describe('testhelper - model preparation', function(done) {
-    it('has 3 jobs', function(done) {
-      Job
-        .find()
-        .exec(function(err, res) {
-          expect(res.length).to.equal(3);
-          done();
-        });
+describe('helper/queries/findVisibleJobById', function(done) {
+  beforeEach(function(done) {
+    query = queries.findVisibleJobById;
+    /* create2 jobs - 1 not visible, 2 visible */
+    helper.createThreeJobs(done);
+  });
+
+  it('selects just visible jobs', function(done) {
+    query(1, Job, function(err, res) {
+      expect(res[0].company).to.equal('visiblecompany');
+      query(0, Job, function(err, res) {
+        expect(res).to.eql([]);
+        done();
+      });
     });
-
-    it('has 2 visible jobs', function(done) {
-      Job
-        .find({visible: true})
-        .exec(function(err, res) {
-          expect(res.length).to.equal(2);
-          done();
-        });
-    });
-
-    it('has 1 not visible job', function(done) {
-      Job
-        .find({visible: false})
-        .exec(function(err, res) {
-          expect(res.length).to.equal(1);
-          done();
-        });
-    });
-
   });
 });
