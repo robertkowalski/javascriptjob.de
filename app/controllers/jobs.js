@@ -11,11 +11,15 @@ DELETE /jobs/1      #=> destroy
 */
 
 exports.index = function(req, res) {
+  var Job,
+      query;
 
+  Job = mongoose.model('Job');
+  query = require('../helper/queries').findAllVisibleOrderedByDate;
 
-
-  
-  res.render('index');
+  query(Job, function(err, jobs) {
+    res.render('index', {joblist: jobs});
+  });
 };
 
 exports.new = function(req, res) {

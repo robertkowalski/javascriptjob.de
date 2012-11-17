@@ -5,6 +5,10 @@ block content
   h1= i18n.t('Validator "required" failed for path howtoapply')
 
   ul
-    li 
+    each job in joblist
+      li
+        span #{job.jobtitle}
+        span #{job.location}
+        span #{job.company}
 
   a(href='/jobs/new') New Job

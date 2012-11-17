@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'), 
+var mongoose = require('mongoose'),
     Job;
 
 
@@ -11,6 +11,7 @@ beforeEach(function(done) {
 
 exports.address = 'http://127.0.0.1:3000';
 
+/* create2 jobs - 1 not visible, 2 visible */
 exports.createThreeJobs = function(done) {
 
   Job = mongoose.model('Job');
@@ -30,7 +31,7 @@ exports.createThreeJobs = function(done) {
     }
     var job2 = new Job({
       jobtitle: 'job2',
-      company: 'barcompany',
+      company: 'visiblecompany',
       website: 'website',
       location: 'moon',
       description: 'best jobs on the moon',
@@ -45,9 +46,9 @@ exports.createThreeJobs = function(done) {
       }
       var job3 = new Job({
         jobtitle: 'job3',
-        company: 'barcompany',
+        company: 'visiblecompany2',
         website: 'website',
-        location: 'moon',
+        location: 'mars',
         description: 'best jobs on the moon',
         howtoapply: 'send a pidgin!',
         date: new Date(2002, 11, 10),
