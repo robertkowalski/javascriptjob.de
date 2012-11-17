@@ -17,8 +17,6 @@ Schema = new mongoose.Schema({
   id: {type: Number, required: true}
 });
 
-
-
 Schema.pre('validate', function(next) {
   var self = this;
   Job = mongoose.model('Job');
