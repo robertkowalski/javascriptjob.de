@@ -54,5 +54,27 @@ describe('Listing of 3 Jobs - 2 visible', function(done) {
         done();
       });
   });
+});
 
+describe('Detaillisting of Jobs', function(done) {
+  var query;
+
+  beforeEach(function(done) {
+    query = queries.findAllVisibleOrderedByDate;
+    /* create2 jobs - 1 not visible, 2 visible */
+    helper.createThreeJobs(done);
+  });
+
+ it('both visible jobs', function(done) {
+    var user1 = request.agent();
+    user1
+      .get(helper.address + '/jobs/1')
+      .end(function(res){
+        expect(res.text).to.contain('visiblecompany');
+        expect(res.text).to.contain('moon');
+        expect(res.text).to.contain('job2');
+
+        done();
+      });
+  });
 });

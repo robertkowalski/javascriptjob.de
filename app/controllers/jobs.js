@@ -57,7 +57,15 @@ exports.create = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  res.send('show forum ' + req.params.job);
+  var Job,
+      query;
+
+  Job = mongoose.model('Job');
+  query = require('../helper/queries').findVisibleJobById;
+
+  query(req.param('job'), Job, function(err, job) {
+    res.render('jobs/job', {job: job[0]});
+  });
 };
 
 exports.edit = function(req, res) {

@@ -8,7 +8,6 @@ exports.findAllVisibleOrderedByDate = function(Job, cb) {
 };
 
 exports.findVisibleJobById = function(id, Job, cb) {
-  console.log(id);
   Job
     .find({
       visible: true,
