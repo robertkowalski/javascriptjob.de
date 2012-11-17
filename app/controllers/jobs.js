@@ -10,15 +10,19 @@ POST   /jobs        #=> create
 DELETE /jobs/1      #=> destroy
 */
 
-exports.index = function(req, res){
+exports.index = function(req, res) {
+
+
+
+  
   res.render('index');
 };
 
-exports.new = function(req, res){
+exports.new = function(req, res) {
   res.render('jobs/new');
 };
 
-exports.create = function(req, res){
+exports.create = function(req, res) {
   var Job,
       job,
       val;
@@ -48,19 +52,19 @@ exports.create = function(req, res){
   });
 };
 
-exports.show = function(req, res){
+exports.show = function(req, res) {
   res.send('show forum ' + req.params.job);
 };
 
-exports.edit = function(req, res){
+exports.edit = function(req, res) {
   res.send('edit forum ' + req.params.job);
 };
 
-exports.update = function(req, res){
+exports.update = function(req, res) {
   res.send('update forum ' + req.params.job);
 };
 
-exports.destroy = function(req, res){
+exports.destroy = function(req, res) {
   res.send('destroy forum ' + req.params.job);
 };
 

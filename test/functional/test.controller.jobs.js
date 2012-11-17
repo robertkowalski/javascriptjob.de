@@ -59,19 +59,4 @@ describe('jobs', function(done) {
         });
     });
   });
-
-  describe('GET / #=> index', function(done) {
-    it('should respond with http status 200', function(done) {
-      request(app)
-        .get('/jobs')
-        .expect(200)
-        .end(function(err, res){
-          if (err) {
-            return done(err);
-          }
-          expect(res.text).to.contain('JavaScript Jobs');
-          done();
-        });
-    });
-  });
 });
