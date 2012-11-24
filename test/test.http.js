@@ -4,7 +4,15 @@ var expect = require('chai').expect,
     request = require('supertest'),
     app = require('../app');
 
+var helper = require('./helper');
+
+
 describe('app should return http status codes', function(done) {
+
+  beforeEach(function(done) {
+    /* create2 jobs - 1 not visible, 2 visible */
+    helper.createThreeJobs(done);
+  });
 
   describe('if a non existing site was requested', function(done) {
     it('should respond with http status 404', function() {
