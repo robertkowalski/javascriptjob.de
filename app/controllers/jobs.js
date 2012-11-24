@@ -78,15 +78,15 @@ exports.show = function(req, res) {
 };
 
 exports.edit = function(req, res) {
-  res.send('edit forum ' + req.params.job);
+  res.send(404);
 };
 
 exports.update = function(req, res) {
-  res.send('update forum ' + req.params.job);
+  res.send(405);
 };
 
 exports.destroy = function(req, res) {
-  res.send('destroy forum ' + req.params.job);
+  res.send(405);
 };
 
 exports.Jobs = { get: function(id, fn) {

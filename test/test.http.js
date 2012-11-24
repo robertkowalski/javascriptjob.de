@@ -21,4 +21,28 @@ describe('app should return http status codes', function(done) {
         .expect(200, done);
     });
   });
+
+  describe('if a job was requested', function(done) {
+    it('should respond with http status 200', function(done) {
+      request(app)
+        .get('/jobs/1')
+        .expect(200, done);
+    });
+  });
+
+  describe('destroying a job with DELETE', function(done) {
+    it('should respond with http status 405', function(done) {
+      request(app)
+        .del('/jobs/1')
+        .expect(405, done);
+    });
+  });
+
+  describe('updating a job with PUT', function(done) {
+    it('should respond with http status 405', function(done) {
+      request(app)
+        .put('/jobs/1')
+        .expect(405, done);
+    });
+  });
 });
