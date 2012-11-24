@@ -58,11 +58,15 @@ exports.create = function(req, res) {
             req.flash('error', val.message);
           });
         } else {
-            res.redirect('jobs/' + job.id)
+            res.redirect('jobs/' + job.id);
         }
       });
     }
   });
+};
+
+exports.verify = function(req, res) {
+  res.send(200);
 };
 
 exports.show = function(req, res) {

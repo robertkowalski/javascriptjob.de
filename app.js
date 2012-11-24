@@ -63,7 +63,9 @@ if (!mongoose.connection.db) {
 }
 
 /* Routing */
-app.resource('jobs', controllers.jobs);
+var jobs = app.resource('jobs', controllers.jobs);
+jobs.map('post', 'verify', controllers.jobs.verify);
+
 app.get('/', controllers.jobs.index);
 
 

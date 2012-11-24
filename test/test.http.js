@@ -30,6 +30,22 @@ describe('app should return http status codes', function(done) {
     });
   });
 
+  describe('if a new job has to be verified', function(done) {
+    it('should respond with http status 200', function(done) {
+      request(app)
+        .post('/jobs/new/verify')
+        .expect(200, done);
+    });
+  });
+
+  describe('if a new job has to be verified from the admin', function(done) {
+    it('should respond with http status 200', function(done) {
+      request(app)
+        .post('/jobs/1/verify')
+        .expect(200, done);
+    });
+  });
+
   describe('if a job was requested', function(done) {
     it('should respond with http status 200', function(done) {
       request(app)
