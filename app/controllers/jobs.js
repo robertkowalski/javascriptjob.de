@@ -51,7 +51,16 @@ exports.create = function(req, res) {
 
       res.redirect('jobs/new');
     } else {
-      res.redirect('jobs/' + job.id)
+      job.save(function(err) {
+        if (err) {
+          Object.keys(err.errors).forEach(function(key) {
+            val = err.errors[key];
+            req.flash('error', val.message);
+          });
+        } else {
+            res.redirect('jobs/' + job.id)
+        }
+      });
     }
   });
 };
