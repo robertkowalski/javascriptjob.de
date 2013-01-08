@@ -51,6 +51,7 @@ exports.create = function(req, res) {
 
       res.redirect('jobs/new');
     } else {
+      /*
       job.save(function(err) {
         if (err) {
           Object.keys(err.errors).forEach(function(key) {
@@ -61,22 +62,34 @@ exports.create = function(req, res) {
             res.redirect('jobs/' + job.id);
         }
       });
+      */
+      req.session.job = job;
+      res.redirect('jobs/new/verify');
     }
   });
 };
 
 exports.verify = function(req, res) {
-  res.send(200);
+  if (req.params.job != 'new') {
+    res.send(501);
+    return;
+  }
+
+  res.render('jobs/verify', {job: req.session.job});
+};
+
+exports.confirm = function(req, res) {
+  res.send(500);
 };
 
 exports.show = function(req, res) {
   var Job,
-      query;
+      findVisibleJobByIdQuery;
 
   Job = mongoose.model('Job');
-  query = require('../helper/queries').findVisibleJobById;
+  findVisibleJobByIdQuery = require('../helper/queries').findVisibleJobById;
 
-  query(req.param('job'), Job, function(err, job) {
+  findVisibleJobByIdQuery(req.param('job'), Job, function(err, job) {
     res.render('jobs/job', {job: job[0]});
   });
 };
@@ -93,8 +106,10 @@ exports.destroy = function(req, res) {
   res.send(405);
 };
 
-exports.Jobs = { get: function(id, fn) {
-  process.nextTick(function(){
-    fn(null, { title: 'Ferrets' });
-  });
-}};
+exports.Jobs = {
+  get: function(id, fn) {
+    process.nextTick(function(){
+      fn(null, { title: 'Ferrets' });
+    });
+  }
+};

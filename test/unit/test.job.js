@@ -18,7 +18,7 @@ describe('Job', function(done) {
         if (Job.schema.paths[value].instance == 'String') {
           xssValues[value] = '<script>alert("You have to talk to mister banana");</script>';
         }
-        xssValues.date = new Date()
+        xssValues.date = new Date();
       });
 
       var job = new Job(xssValues);

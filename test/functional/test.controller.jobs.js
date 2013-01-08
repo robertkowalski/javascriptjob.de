@@ -24,7 +24,7 @@ describe('jobs', function(done) {
         });
     });
 
-    it('should redirect to the created job if a valid job was posted', function(done) {
+    it('should redirect to the verify-action after a valid job was posted', function(done) {
       request(app)
         .post('/jobs')
         .send({
@@ -39,7 +39,7 @@ describe('jobs', function(done) {
           if (err) {
             return done(err);
           }
-          expect(res.text).to.contain('Moved Temporarily. Redirecting to /jobs/0');
+          expect(res.text).to.contain('Moved Temporarily. Redirecting to /jobs/new/verify');
           done();
         });
     });

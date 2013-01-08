@@ -33,16 +33,16 @@ describe('app should return http status codes', function(done) {
   describe('if a new job has to be verified', function(done) {
     it('should respond with http status 200', function(done) {
       request(app)
-        .post('/jobs/new/verify')
+        .get('/jobs/new/verify')
         .expect(200, done);
     });
   });
 
-  describe('if a new job has to be verified from the admin', function(done) {
-    it('should respond with http status 200', function(done) {
+  describe('if an existing job has to be verified', function(done) {
+    it('should respond with http status 501', function(done) {
       request(app)
-        .post('/jobs/1/verify')
-        .expect(200, done);
+        .get('/jobs/1/verify')
+        .expect(501, done);
     });
   });
 
