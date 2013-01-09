@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  h1= i18n.t('Verify the job')
+
+  div
+    if job
+      form(method='post', action='/jobs/new/confirm')
+        span Jobtitle
+        span= job.jobtitle
+        br
+        span Company
+        span= job.company
+        br
+        span Website
+        span= job.website
+        br
+        span Location
+        span= job.location
+        br
+        span Description
+        span= job.description
+        br
+        span How to apply
+        span= job.howtoapply
+
+        button(type='submit') Submit
+
+      a(href='/jobs/new') Back
+    else
+      div Error

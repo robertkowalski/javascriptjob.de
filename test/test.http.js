@@ -2,6 +2,7 @@ process.env.NODE_ENV = 'test';
 
 var expect = require('chai').expect,
     request = require('supertest'),
+    superagent = require('superagent'),
     app = require('../app');
 
 var helper = require('./helper');
@@ -38,10 +39,43 @@ describe('app should return http status codes', function(done) {
     });
   });
 
+  describe('if a new job was verified and it is OK', function(done) {
+    it('should respond with http status 200', function(done) {
+      /* create some fake data */
+      var user1 = superagent.agent();
+      user1
+        .post(helper.address + '/jobs')
+        .send({
+          jobtitle: 'foomy',
+          company: 'barme',
+          website: 'websity',
+          location: 'locaty',
+          description: 'descripty',
+          howtoapply: 'howtoapplyy'
+        })
+        .end(function(res) {
+          user1
+            .post(helper.address + '/jobs/new/confirm')
+            .end(function(res) {
+              expect(res.statusCode).to.equal(200);
+              done();
+            });
+        });
+    });
+  });
+
   describe('if an existing job has to be verified', function(done) {
     it('should respond with http status 501', function(done) {
       request(app)
         .get('/jobs/1/verify')
+        .expect(501, done);
+    });
+  });
+
+  describe('if an existing job has to be confirmed', function(done) {
+    it('should respond with http status 501', function(done) {
+      request(app)
+        .post('/jobs/1/confirm')
         .expect(501, done);
     });
   });

@@ -63,18 +63,6 @@ exports.create = function(req, res) {
 
       res.redirect('jobs/new');
     } else {
-      /*
-      job.save(function(err) {
-        if (err) {
-          Object.keys(err.errors).forEach(function(key) {
-            val = err.errors[key];
-            req.flash('error', val.message);
-          });
-        } else {
-            res.redirect('jobs/' + job.id);
-        }
-      });
-      */
       req.session.job = job;
       res.redirect('jobs/new/verify');
     }
@@ -91,7 +79,38 @@ exports.verify = function(req, res) {
 };
 
 exports.confirm = function(req, res) {
-  res.send(500);
+  var job = req.session.job,
+      Job,
+      val;
+
+  if (req.params.job != 'new') {
+    res.send(501);
+    return;
+  }
+
+  Job = mongoose.model('Job');
+  job = new Job(job);
+
+  job.validate(function(err) {
+    if (err) {
+      Object.keys(err.errors).forEach(function(key) {
+        val = err.errors[key];
+        req.flash('error', val.message);
+      });
+      res.redirect('jobs/new');
+    } else {
+      job.save(function(err) {
+        if (err) {
+          Object.keys(err.errors).forEach(function(key) {
+            val = err.errors[key];
+            req.flash('error', val.message);
+          });
+        } else {
+          res.render('jobs/confirmed');
+        }
+      });
+    }
+  });
 };
 
 exports.show = function(req, res) {

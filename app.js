@@ -26,12 +26,12 @@ app.configure(function() {
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(i18next.handle);
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
   app.use(flashify);
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
 });
 
 i18next.registerAppHelper(app);
@@ -65,7 +65,7 @@ if (!mongoose.connection.db) {
 /* Routing */
 var jobs = app.resource('jobs', controllers.jobs);
 jobs.map('get', 'verify', controllers.jobs.verify);
-jobs.map('post', '/confirm', controllers.jobs.confirm);
+jobs.map('post', 'confirm', controllers.jobs.confirm);
 
 app.get('/', controllers.jobs.index);
 
