@@ -80,8 +80,7 @@ describe('Detaillisting of Jobs', function(done) {
 });
 
 describe('Verifying a job', function(done) {
- it('a valid job was created', function(done) {
-
+ it('after posting a valid job one should verify the input', function(done) {
     var user1 = request.agent();
     user1
       .post(helper.address + '/jobs')
@@ -102,6 +101,33 @@ describe('Verifying a job', function(done) {
         expect(res.text).to.contain('howtoapplyy');
         done();
       });
-
   });
+
+ it('should show the entered data after clicking back on the screen where I validate the data', function(done) {
+    var user1 = request.agent();
+    user1
+      .post(helper.address + '/jobs')
+      .send({
+        jobtitle: 'foomy',
+        company: 'barme',
+        website: 'websity',
+        location: 'locaty',
+        description: 'descripty',
+        howtoapply: 'howtoapplyy'
+      })
+      .end(function(res) {
+        user1
+          .get(helper.address + '/jobs/new')
+          .end(function(res) {
+            expect(res.text).to.contain('foomy');
+            expect(res.text).to.contain('barme');
+            expect(res.text).to.contain('websity');
+            expect(res.text).to.contain('locaty');
+            expect(res.text).to.contain('descripty');
+            expect(res.text).to.contain('howtoapplyy');
+            done();
+          });
+      });
+  });
+
 });

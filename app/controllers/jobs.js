@@ -23,7 +23,19 @@ exports.index = function(req, res) {
 };
 
 exports.new = function(req, res) {
-  res.render('jobs/new');
+  var job = req.session.job;
+  if (!job) {
+    job = {
+      jobtitle: '',
+      company: '',
+      website: '',
+      location: '',
+      description: '',
+      howtoapply: ''
+    }
+  }
+
+  res.render('jobs/new', {job: job});
 };
 
 exports.create = function(req, res) {
