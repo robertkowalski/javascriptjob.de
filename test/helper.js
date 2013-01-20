@@ -16,8 +16,8 @@ exports.createThreeJobs = function(done) {
 
   Job = mongoose.model('Job');
   var job1 = new Job({
-    jobtitle: 'job1',
-    company: 'barcompany',
+    jobtitle: 'Nicht sichtbarer Developer',
+    company: 'Frontend Corp.',
     website: 'website',
     location: 'moon',
     description: 'best jobs on the moon',
@@ -30,10 +30,10 @@ exports.createThreeJobs = function(done) {
       console.error(err);
     }
     var job2 = new Job({
-      jobtitle: 'job2',
-      company: 'visiblecompany',
+      jobtitle: 'Node.js Developer - Backend',
+      company: 'Foo Inc.',
       website: 'website',
-      location: 'moon',
+      location: 'München',
       description: 'best jobs on the moon',
       howtoapply: 'send a pidgin!',
       date: new Date(1999, 10, 9),
@@ -45,10 +45,10 @@ exports.createThreeJobs = function(done) {
         console.error(err);
       }
       var job3 = new Job({
-        jobtitle: 'job3',
-        company: 'visiblecompany2',
+        jobtitle: 'Frontend Developer',
+        company: 'Frontend Corp.',
         website: 'website',
-        location: 'mars',
+        location: 'Hamburg',
         description: 'best jobs on the moon',
         howtoapply: 'send a pidgin!',
         date: new Date(2002, 11, 10),

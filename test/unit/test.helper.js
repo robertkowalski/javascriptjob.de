@@ -48,7 +48,7 @@ describe('helper/queries/findVisibleJobById', function(done) {
 
   it('selects just visible jobs', function(done) {
     query(1, Job, function(err, res) {
-      expect(res[0].company).to.equal('visiblecompany');
+      expect(res[0].company).to.equal('Foo Inc.');
       query(0, Job, function(err, res) {
         expect(res).to.eql([]);
         done();

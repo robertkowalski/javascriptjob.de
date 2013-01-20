@@ -17,7 +17,7 @@ block content
       each job in joblist
         a(href='/jobs/#{job.id}')
           li
-            span(class='jobtitle') #{job.location} &nbsp;
+            span(class='') #{job.location} &nbsp;
             span #{job.jobtitle} &nbsp;
             span #{job.company} &nbsp;
             span datehelper(#{job.date})

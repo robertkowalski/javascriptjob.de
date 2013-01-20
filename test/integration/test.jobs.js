@@ -42,14 +42,14 @@ describe('Listing of 3 Jobs - 2 visible', function(done) {
     user1
       .get(helper.address + '/jobs')
       .end(function(res) {
-        expect(res.text).to.contain('visiblecompany');
-        expect(res.text).to.contain('visiblecompany2');
+        expect(res.text).to.contain('Foo');
+        expect(res.text).to.contain('Frontend Corp.');
 
-        expect(res.text).to.contain('moon');
-        expect(res.text).to.contain('mars');
+        expect(res.text).to.contain('München');
+        expect(res.text).to.contain('Hamburg');
 
-        expect(res.text).to.contain('job2');
-        expect(res.text).to.contain('job3');
+        expect(res.text).to.contain('Node.js Developer - Backend');
+        expect(res.text).to.contain('Frontend Developer');
 
         done();
       });
@@ -70,9 +70,9 @@ describe('Detaillisting of Jobs', function(done) {
     user1
       .get(helper.address + '/jobs/1')
       .end(function(res) {
-        expect(res.text).to.contain('visiblecompany');
+        expect(res.text).to.contain('Foo Inc.');
         expect(res.text).to.contain('moon');
-        expect(res.text).to.contain('job2');
+        expect(res.text).to.contain('Node.js Developer - Backend');
 
         done();
       });
