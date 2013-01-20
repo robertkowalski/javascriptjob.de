@@ -4,13 +4,22 @@ block content
 
   if job
     h2= job.jobtitle
-
-    h2
-      span= job.company
-      br
-      span= job.location
-
+    span Datum: &nbsp;
+    span= job.date
+    br
+    span Firma: &nbsp;
+    span= job.company
+    br
+    span Website: &nbsp;
+    span= job.website
+    br
+    span Ort: &nbsp;
+    span= job.location
+    br
+    span Wie bewerben: &nbsp;
+    span= job.howtoapply
     div
-      div= job.description
+      span Beschreibung &nbsp;
+      span= job.description
   else
     div.error Kein Job mit dieser Id!
