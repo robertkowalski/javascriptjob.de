@@ -1,13 +1,19 @@
 extends ../layout
 
 block content
-  h1= i18n.t('Create new job')
+  h2= i18n.t('Create new job')
 
   form(method='post', action='/jobs')
-    input(type='text', name='jobtitle', placeholder='Jobtitle', value=job.jobtitle)
-    input(type='text', name='company', placeholder='Company', value=job.company)
+    input(type='text', name='jobtitle', placeholder='Jobtitel', value=job.jobtitle)
+    br
+    input(type='text', name='company', placeholder='Firma', value=job.company)
+    br
     input(type='text', name='website', placeholder='Website', value=job.website)
-    input(type='text', name='location', placeholder='Location', value=job.location)
-    input(type='textarea', name='description', placeholder='Description', value=job.description)
-    input(type='text', name='howtoapply', placeholder='How to apply', value=job.howtoapply)
+    br
+    input(type='text', name='location', placeholder='Ort', value=job.location)
+    br
+    textarea(rows='20', name='description', placeholder='Beschreibung', value=job.description)
+    br
+    textarea(rows='10', name='howtoapply', placeholder='Wie bewerben', value=job.howtoapply)
+    br
     button(type='submit') Submit

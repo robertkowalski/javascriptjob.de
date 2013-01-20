@@ -32,6 +32,10 @@ app.configure(function() {
   app.use(express.session());
   app.use(flashify);
   app.use(app.router);
+
+  app.locals.datehelper = function(date) {
+    return 'DATUM BABY; I FOLLOW YOU.'
+  };
 });
 
 i18next.registerAppHelper(app);

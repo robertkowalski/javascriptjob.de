@@ -1,17 +1,25 @@
 doctype 5
 html
   head
+    title JavaScript Jobs
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+    link(href='stylesheets/style.css', rel='stylesheet')
   body
+    div(class='container')
+      div(class='row')
+        div(class='span12')
+          h1 JavaScript Jobs
+          if (flash.error != undefined)
+            div(id='messages')
+              ul.error
+                each error in flash.error
+                  li= i18n.t(error)
+          div(class='row')
+            div(class='span9')
+              block content
+            div(class='span3')
+              div(class='hidden-phone')
+                img(src='https://raw.github.com/voodootikigod/logo.js/master/js.png')
 
-    h1 JavaScript Jobs
-    if (flash.error != undefined)
-      div(id='messages')
-        ul.error
-          each error in flash.error
-            li= i18n.t(error)
-
-    block content
-
-    link(href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css', rel='stylesheet')
-    script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js')
+      link(href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css', rel='stylesheet')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js')
