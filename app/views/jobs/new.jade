@@ -4,16 +4,16 @@ block content
   h2= i18n.t('Create a new job')
 
   form(method='post', action='/jobs')
-    input(type='text', name='jobtitle', placeholder='Jobtitel', value=job.jobtitle)
+    input(class='span9', type='text', name='jobtitle', placeholder='Jobtitel', value=job.jobtitle)
     br
-    input(type='text', name='company', placeholder='Firma', value=job.company)
+    input(class='span9', type='text', name='company', placeholder='Firma', value=job.company)
     br
-    input(type='text', name='website', placeholder='Website', value=job.website)
+    input(class='span9', type='text', name='website', placeholder='Website', value=job.website)
     br
-    input(type='text', name='location', placeholder='Ort', value=job.location)
+    input(class='span9', type='text', name='location', placeholder='Ort', value=job.location)
     br
-    textarea(rows='20', name='description', placeholder='Beschreibung', value=job.description)
+    textarea(class='span9', rows='15', name='description', placeholder='Beschreibung', value=job.description)
     br
-    textarea(rows='10', name='howtoapply', placeholder='Wie bewerben', value=job.howtoapply)
+    textarea(class='span9', rows='10', name='howtoapply', placeholder='Wie bewerben', value=job.howtoapply)
     br
     button(type='submit') Submit

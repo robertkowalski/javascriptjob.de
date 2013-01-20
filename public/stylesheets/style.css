@@ -44,3 +44,7 @@ div#joblist ul li {
 div#joblist span.jobtitle {
   font-weight: bold;
 }
+
+div#joblist {
+  padding: 10px 0 10px 0;
+}

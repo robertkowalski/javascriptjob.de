@@ -3,7 +3,7 @@ extends ../layout
 block content
   h2 Jobangebot prüfen
 
-  div
+  div(class='span9')
     if job
       form(method='post', action='/jobs/new/confirm')
         span Jobtitel: &nbsp;

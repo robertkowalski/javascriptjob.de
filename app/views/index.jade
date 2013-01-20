@@ -9,14 +9,17 @@ block content
   div JavaScript Jobs: JavaScript im Frontend oder im Backend mit Node.js - mit JavaScript Jobs können Sie Jobs für JavaScript kostenlos einstellen oder suchen.
   br
 
+  a(href='/jobs/new') Neuen JavaScript Job erstellen
+
   h2 Jobs
   div(id='joblist')
     ul
       each job in joblist
-        li
-          span(class='jobtitle') #{job.location} &nbsp;
-          span #{job.jobtitle} &nbsp;
-          span #{job.company} &nbsp;
-          span datehelper(#{job.date})
+        a(href='/jobs/#{job.id}')
+          li
+            span(class='jobtitle') #{job.location} &nbsp;
+            span #{job.jobtitle} &nbsp;
+            span #{job.company} &nbsp;
+            span datehelper(#{job.date})
 
   a(href='/jobs/new') Neuen JavaScript Job erstellen
