@@ -6,22 +6,22 @@ block content
   div
     if job
       form(method='post', action='/jobs/new/confirm')
-        span Jobtitel: 
+        span Jobtitel: &nbsp;
         span= job.jobtitle
         br
-        span Firma: 
+        span Firma: &nbsp;
         span= job.company
         br
-        span Website: 
+        span Website: &nbsp;
         span= job.website
         br
-        span Ort: 
+        span Ort: &nbsp;
         span= job.location
         br
-        span Beschreibung: 
+        span Beschreibung: &nbsp;
         span= job.description
         br
-        span Wie bewerben: 
+        span Wie bewerben: &nbsp;
         span= job.howtoapply
         br
         br
