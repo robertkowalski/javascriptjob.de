@@ -10,13 +10,13 @@ block content
   br
 
   h2 Jobs
-    div(id='joblist')
-      ul
-        each job in joblist
-          li
-            span(class='jobtitle') #{job.location} &nbsp;
-            span #{job.jobtitle} &nbsp;
-            span #{job.company} &nbsp;
-            span datehelper(#{job.date})
+  div(id='joblist')
+    ul
+      each job in joblist
+        li
+          span(class='jobtitle') #{job.location} &nbsp;
+          span #{job.jobtitle} &nbsp;
+          span #{job.company} &nbsp;
+          span datehelper(#{job.date})
 
   a(href='/jobs/new') Neuer Job
