@@ -32,7 +32,7 @@ exports.createThreeJobs = function(done) {
     var job2 = new Job({
       jobtitle: 'Node.js Developer - Backend',
       company: 'Foo Inc.',
-      website: 'website',
+      website: 'http://google.com',
       location: 'München',
       description: 'best jobs on the moon',
       howtoapply: 'send a pidgin!',
@@ -47,7 +47,7 @@ exports.createThreeJobs = function(done) {
       var job3 = new Job({
         jobtitle: 'Frontend Developer',
         company: 'Frontend Corp.',
-        website: 'website',
+        website: 'http://google.com',
         location: 'Hamburg',
         description: 'best jobs on the moon',
         howtoapply: 'send a pidgin!',

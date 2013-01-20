@@ -11,7 +11,7 @@ block content
     span= job.company
     br
     span Website: &nbsp;
-    span= job.website
+    a(href='#{job.website}') #{job.website}
     br
     span Ort: &nbsp;
     span= job.location
