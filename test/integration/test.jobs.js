@@ -43,13 +43,13 @@ describe('Listing of 3 Jobs - 2 visible', function(done) {
       .get(helper.address + '/jobs')
       .end(function(res) {
         expect(res.text).to.contain('Foo');
-        expect(res.text).to.contain('Frontend Corp.');
+        expect(res.text).to.contain('Jimdo GmbH');
 
         expect(res.text).to.contain('München');
         expect(res.text).to.contain('Hamburg');
 
         expect(res.text).to.contain('Node.js Developer - Backend');
-        expect(res.text).to.contain('Frontend Developer');
+        expect(res.text).to.contain('Endgegner gesucht');
 
         done();
       });

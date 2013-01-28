@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  h2= i18n.t('Create a new job')
+  h2 Neues Jobangebot erstellen
 
   form(method='post', action='/jobs')
     input(class='span9', type='text', name='jobtitle', placeholder='Jobtitel', value=job.jobtitle)
@@ -12,8 +12,8 @@ block content
     br
     input(class='span9', type='text', name='location', placeholder='Ort', value=job.location)
     br
-    textarea(class='span9', rows='15', name='description', placeholder='Beschreibung', value=job.description)
+    textarea(class='span9', rows='15', name='description', placeholder='Beschreibung')!=job.description
     br
-    textarea(class='span9', rows='10', name='howtoapply', placeholder='Wie bewerben', value=job.howtoapply)
+    textarea(class='span9', rows='10', name='howtoapply', placeholder='Wie bewerben')!=job.howtoapply
     br
     button(type='submit') Submit
