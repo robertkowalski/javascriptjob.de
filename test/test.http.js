@@ -103,4 +103,12 @@ describe('app should return http status codes', function(done) {
         .expect(405, done);
     });
   });
+
+  describe('if the impressum was requested', function(done) {
+    it('should respond with http status 200', function(done) {
+      request(app)
+        .get('/impressum')
+        .expect(200, done);
+    });
+  });
 });

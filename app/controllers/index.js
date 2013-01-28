@@ -1,3 +1,4 @@
 module.exports = {
-  jobs: require('./jobs')
+  jobs: require('./jobs'),
+  impressum: require('./impressum')
 };

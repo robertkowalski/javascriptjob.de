@@ -88,6 +88,7 @@ jobs.map('get', 'verify', controllers.jobs.verify);
 jobs.map('post', 'confirm', controllers.jobs.confirm);
 
 app.get('/', controllers.jobs.index);
+app.get('/impressum', controllers.impressum.index);
 
 
 http.createServer(app).listen(app.get('port'), function() {
