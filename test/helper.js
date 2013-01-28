@@ -36,7 +36,7 @@ exports.createThreeJobs = function(done) {
       location: 'München',
       description: 'best jobs on the moon',
       howtoapply: 'send a pidgin!',
-      date: new Date(1999, 10, 9),
+      date: new Date(),
       visible: true
     });
 
@@ -57,7 +57,7 @@ exports.createThreeJobs = function(done) {
         location: 'Hamburg',
         description: html,
         howtoapply: 'Pages to the People? Bitte sende deine Unterlagen per E-Mail an fridtjof@jimdo.com. Dein Ansprechpartner ist Fridel.',
-        date: new Date(2002, 11, 10),
+        date: new Date(2007, 11, 10),
         visible: true
       });
 

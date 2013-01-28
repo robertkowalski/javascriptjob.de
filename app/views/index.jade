@@ -20,6 +20,6 @@ block content
             span(class='') #{job.location} &nbsp;
             span #{job.jobtitle} &nbsp;
             span #{job.company} &nbsp;
-            span datehelper(#{job.date})
+            span= locals.formatDate(job.date)
 
   a(href='/jobs/new') Neuen JavaScript Job erstellen

@@ -4,8 +4,8 @@ block content
 
   if job
     h2= job.jobtitle
-    span Datum: &nbsp;
-    span= job.date
+    span Erstellt: &nbsp;
+    span= locals.formatDate(job.date)
     br
     span Firma: &nbsp;
     span= job.company

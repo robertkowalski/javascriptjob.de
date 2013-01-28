@@ -5,7 +5,8 @@ var express = require('express'),
     path = require('path'),
     mongoose = require('mongoose'),
     i18next = require('i18next'),
-    flashify = require('flashify');
+    flashify = require('flashify'),
+    dateFormat = require('dateformat');
 
 var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
 
@@ -30,12 +31,27 @@ app.configure(function() {
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
+
+  app.use(function(req, res, next) {
+    res.locals.dateHelper = function(date) {
+      console.log(date);
+      return 1;
+    };
+    next();
+  });
+
+  app.use(function(req, res, next) {
+    res.locals.formatDate = function(date) {
+      return dateFormat(date, 'dd.mm.yyyy');
+    };
+    next();
+  });
+
+
   app.use(flashify);
   app.use(app.router);
 
-  app.locals.datehelper = function(date) {
-    return 'DATUM BABY; I FOLLOW YOU.'
-  };
+
 });
 
 i18next.registerAppHelper(app);
