@@ -6,7 +6,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     i18next = require('i18next'),
     flashify = require('flashify'),
-    dateFormat = require('dateformat');
+    dateFormat = require('dateformat'),
+    prettyDate = require('./app/helper/prettyDate');
 
 var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
 
@@ -33,9 +34,8 @@ app.configure(function() {
   app.use(express.session());
 
   app.use(function(req, res, next) {
-    res.locals.dateHelper = function(date) {
-      console.log(date);
-      return 1;
+    res.locals.prettyDate = function(date) {
+      return prettyDate(date);
     };
     next();
   });

@@ -12,14 +12,18 @@ block content
   a(href='/jobs/new') Neuen JavaScript Job erstellen
 
   h2 Jobs
-  div(id='joblist')
-    ul
-      each job in joblist
-        a(href='/jobs/#{job.id}')
-          li
-            span(class='') #{job.location} &nbsp;
-            span #{job.jobtitle} &nbsp;
-            span #{job.company} &nbsp;
-            span= locals.formatDate(job.date)
+  if (typeof joblist != 'undefined' && typeof joblist[0] != 'undefined')
+    div Letzter Eintrag: &nbsp;
+      span= locals.prettyDate(joblist[0].date)
 
-  a(href='/jobs/new') Neuen JavaScript Job erstellen
+    div(id='joblist')
+      ul
+        each job in joblist
+          a(href='/jobs/#{job.id}')
+            li
+              span(class='') #{job.location} &nbsp;
+              span #{job.jobtitle} &nbsp;
+              span #{job.company} &nbsp;
+              span= locals.formatDate(job.date)
+
+    a(href='/jobs/new') Neuen JavaScript Job erstellen
