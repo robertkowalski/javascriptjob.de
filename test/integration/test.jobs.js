@@ -130,4 +130,31 @@ describe('Verifying a job', function(done) {
       });
   });
 
+ it('should prevent XSS where I validate the data', function(done) {
+    var user1 = request.agent();
+    user1
+      .post(helper.address + '/jobs')
+      .send({
+        jobtitle: '<script>alert(0);</script>',
+        company: 'barme',
+        website: 'websity',
+        location: 'locaty',
+        description: 'descripty',
+        howtoapply: 'howtoapplyy'
+      })
+      .end(function(res) {
+        user1
+          .get(helper.address + '/jobs/new')
+          .end(function(res) {
+            expect(res.text).to.contain('[removed]alert&#40;0&#41;;[removed]');
+            expect(res.text).to.contain('barme');
+            expect(res.text).to.contain('websity');
+            expect(res.text).to.contain('locaty');
+            expect(res.text).to.contain('descripty');
+            expect(res.text).to.contain('howtoapplyy');
+            done();
+          });
+      });
+  });
+
 });
