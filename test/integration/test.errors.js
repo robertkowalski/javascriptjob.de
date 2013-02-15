@@ -7,7 +7,7 @@ var expect = require('chai').expect,
 
 var helper = require('../helper');
 
-describe('Impressum', function(done) {
+describe('Custom Errorpages', function(done) {
   it('should contain a human readable error code', function(done) {
     var user1 = request.agent();
     user1
