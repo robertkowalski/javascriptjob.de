@@ -51,7 +51,15 @@ app.configure(function() {
   app.use(flashify);
   app.use(app.router);
 
+  app.use(function(err, req, res, next) {
+    res.status(500);
+    res.render('error', {error: '500 error'});
+  });
 
+  app.use(function(req, res, next) {
+    res.status(404);
+    res.render('error', {error: '404 error'});
+  });
 });
 
 i18next.registerAppHelper(app);
