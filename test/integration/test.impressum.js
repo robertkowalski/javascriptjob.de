@@ -24,4 +24,15 @@ describe('Impressum', function(done) {
         done();
       });
   });
+
+  it('should not get indexed by crawlers', function(done) {
+    var user1 = request.agent();
+    user1
+      .get(helper.address + '/impressum')
+      .end(function(res) {
+        expect(res.text).to.contain('<meta name="robots" content="noindex">');
+        done();
+      });
+  });
+
 });

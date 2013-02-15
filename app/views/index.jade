@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-  h2 node.js und Frontend
+  h2 node.js und Frontend Entwickler
   div Suchen Sie JavaScript Entwickler im Bereich Frontend oder Backend fest oder als freier Entwickler?
   div Sie sind JavaScript Entwickler auf Jobsuche?
   br
@@ -21,9 +21,12 @@ block content
         each job in joblist
           a(href='/jobs/#{job.id}')
             li
-              span(class='') #{job.location} &nbsp;
+              span #{job.location} &nbsp;
               span #{job.jobtitle} &nbsp;
               span #{job.company} &nbsp;
               span= locals.formatDate(job.date)
 
     a(href='/jobs/new') Neuen JavaScript Job erstellen
+
+block foot
+  include includes/footer_missing_home

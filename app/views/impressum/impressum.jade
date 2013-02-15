@@ -1,5 +1,8 @@
 extends ../layout
 
+append head
+  meta(name='robots', content='noindex')
+
 block content
 
   #contact
@@ -14,3 +17,6 @@ block content
       Telefon: 0176 96917923
       <br/>
       E-Mail: rok@kowalski.gd
+
+block foot
+  include ../includes/footer_missing_imprint
