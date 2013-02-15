@@ -1,3 +1,5 @@
+// https://github.com/azer/relative-date/blob/master/lib/relative-date.js
+
 var relativeDate = (function(undefined){
 
   var SECOND = 1000,

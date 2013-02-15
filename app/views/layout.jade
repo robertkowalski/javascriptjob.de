@@ -7,24 +7,14 @@ html
   body
     div(class='container')
       section#content
-        div(class='row')
-          div(class='span12')
-            h1
-              a(href='/') JavaScript Jobs
-            if (flash.error != undefined)
-              div(id='messages')
-                ul.error
-                  each error in flash.error
-                    li= i18n.t(error)
-            div(class='row')
-              div(class='span9')
-                block content
-              div(class='span3')
-                div(class='hidden-phone')
-                  img(src='https://raw.github.com/voodootikigod/logo.js/master/js.png')
+        h1
+          a(href='/') JavaScript Jobs
+        if (flash.error != undefined)
+          div(id='messages')
+            ul.error
+              each error in flash.error
+                li= i18n.t(error)
+        block content
 
       section#footer
         a(href='/impressum') Impressum
-
-      link(href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css', rel='stylesheet')
-      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js')
