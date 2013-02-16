@@ -25,6 +25,7 @@ block content
         span= job.howtoapply
         br
         br
+        input(type='hidden', name='_csrf', value=token)
         button(type='submit') Submit
 
       a(href='/jobs/new') Back

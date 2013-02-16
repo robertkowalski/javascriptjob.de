@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    csrf = require('../helper/csrf');
 
 /*
 GET    /jobs        #=> index
@@ -140,6 +141,7 @@ exports.destroy = function(req, res) {
 exports.Jobs = {
   get: function(id, fn) {
     process.nextTick(function(){
+      console.log("------------------------------>>"+id);
       fn(null, { title: 'Ferrets' });
     });
   }

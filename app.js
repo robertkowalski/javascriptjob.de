@@ -60,7 +60,7 @@ app.configure(function() {
     next();
   });
 
-
+  app.use(express.csrf());
   app.use(flashify);
   app.use(app.router);
 
@@ -73,6 +73,7 @@ app.configure(function() {
     res.status(404);
     res.render('error', {error: '404 error'});
   });
+
 });
 
 i18next.registerAppHelper(app);
@@ -92,7 +93,15 @@ if (!mongoose.connection.db) {
   db.model('Job', require('./app/models/job'));
 }
 
+
+
 /* Routing */
+
+// Middleware for resources
+app.all('/*', function(req, res, next) {
+   require('./app/helper/csrf')(req, res, next);
+});
+
 var jobs = app.resource('jobs', controllers.jobs);
 jobs.map('get', 'verify', controllers.jobs.verify);
 jobs.map('post', 'confirm', controllers.jobs.confirm);
