@@ -7,7 +7,8 @@ var express = require('express'),
     i18next = require('i18next'),
     flashify = require('flashify'),
     dateFormat = require('dateformat'),
-    prettyDate = require('./app/helper/prettyDate');
+    prettyDate = require('./app/helper/prettyDate'),
+    RedisStore = require('connect-redis')(express);
 
 var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
 
@@ -31,7 +32,19 @@ app.configure(function() {
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
+
+  if (app.get('env') == 'development' || app.get('env') == 'test') {
+    app.locals.pretty = true;
+    app.use(express.errorHandler());
+    app.set('mongoDb', 'mongodb://localhost/jsjobstest');
+
+    app.use(express.session());
+  }
+
+  app.configure('production', function() {
+    app.use(express.session({ store: new RedisStore({host:'127.0.0.1', port: 6379}), secret: 'lolcat' }));
+    app.set('mongoDb', 'mongodb://localhost/jsjobstest');
+  });
 
   app.use(function(req, res, next) {
     res.locals.prettyDate = function(date) {
@@ -72,17 +85,6 @@ i18next.serveWebTranslate(app, {
   }
 });
 
-app.configure('development', function() {
-  app.locals.pretty = true;
-  app.use(express.errorHandler());
-  app.set('mongoDb', 'mongodb://localhost/jsjobstest');
-});
-
-app.configure('test', function() {
-  app.locals.pretty = true;
-  app.use(express.errorHandler());
-  app.set('mongoDb', 'mongodb://localhost/jsjobstest');
-});
 
 /* DB / Models */
 if (!mongoose.connection.db) {

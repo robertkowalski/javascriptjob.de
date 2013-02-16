@@ -7,14 +7,14 @@
     "test": "make"
   },
   "dependencies": {
-    "express": "3.1.0",
+    "express": "3.1.x",
     "jade": "*",
-    "validator": "0.4.11",
-    "flashify": "0.1.0",
-    "mongoose": "3.3.1",
+    "validator": "0.4.x",
+    "flashify": "0.1.x",
+    "mongoose": "3.3.x",
     "i18next": "1.5.x",
-    "express-resource": "1.0.0",
-    "dateformat": "1.0.4-1.2.3"
+    "express-resource": "1.0.x",
+    "connect-redis": "1.4.x"
   },
   "devDependencies": {
     "chai": "*",
@@ -24,5 +24,5 @@
     "nock": "0.13.4",
     "supertest": "0.4.x"
   },
-  "engine": "node 0.8.x"
+  "engine": "node 0.8.20"
 }
