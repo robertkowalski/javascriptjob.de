@@ -37,14 +37,19 @@ app.configure(function() {
     app.locals.pretty = true;
     app.use(express.errorHandler());
     app.set('mongoDb', 'mongodb://localhost/jsjobstest');
-
-    app.use(express.session());
+    app.use(express.session({store: new RedisStore({host:'127.0.0.1', port: 6379}), secret: 'lolcat' }));
   }
 
-  app.configure('production', function() {
-    app.use(express.session({ store: new RedisStore({host:'127.0.0.1', port: 6379}), secret: 'lolcat' }));
+  if (app.get('env') == 'production') {
+
+    app.use(express.session({store: new RedisStore({host:'127.0.0.1', port: 6379}), secret: 'lolcat' }));
     app.set('mongoDb', 'mongodb://localhost/jsjobstest');
-  });
+
+    app.locals.pretty = true;
+    app.use(express.errorHandler());
+
+    app.use(express.csrf());
+  }
 
   app.use(function(req, res, next) {
     res.locals.prettyDate = function(date) {
@@ -60,9 +65,17 @@ app.configure(function() {
     next();
   });
 
-  app.use(express.csrf());
   app.use(flashify);
   app.use(app.router);
+
+
+  app.use(function(err, req, res, next) {
+    if (err.status !== 403) {
+      return next();
+    }
+    res.status(403);
+    res.render('error', {error: '403 error'});
+  });
 
   app.use(function(err, req, res, next) {
     res.status(500);
@@ -75,6 +88,7 @@ app.configure(function() {
   });
 
 });
+
 
 i18next.registerAppHelper(app);
 
@@ -108,7 +122,6 @@ jobs.map('post', 'confirm', controllers.jobs.confirm);
 
 app.get('/', controllers.jobs.index);
 app.get('/impressum', controllers.impressum.index);
-
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));

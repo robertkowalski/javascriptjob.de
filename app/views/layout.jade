@@ -12,11 +12,12 @@ html
           a(href='/') JavaScript Jobs
       div#site.container
         div#content
-          if (flash.error != undefined)
-            div(id='messages')
-              ul.error
-                each error in flash.error
-                  li= i18n.t(error)
+          if (typeof flash != 'undefined')
+            if (typeof flash.error != 'undefined')
+              div(id='messages')
+                ul.error
+                  each error in flash.error
+                    li= i18n.t(error)
           block content
 
       div#footer.container
