@@ -21,6 +21,9 @@ block content
         each job in joblist
           a(href='/jobs/#{job.id}')
             li
+              span(class='new-badge')
+                span(class='badge badge-info') NEU
+                &nbsp;
               span #{job.location} &nbsp;
               span #{job.jobtitle} &nbsp;
               span #{job.company} &nbsp;

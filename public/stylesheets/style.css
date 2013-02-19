@@ -54,6 +54,11 @@ p {
   margin-bottom: 20px;
 }
 
+.new-badge {
+  left: -60px;
+  position: relative;
+  margin-right: -50px;
+}
 
 /* Errormessages */
 #messages ul,
@@ -95,7 +100,7 @@ div#joblist ul,
 div#joblist ul li {
   list-style: none;
   margin: 0px;
-  padding: 0px;
+  padding: 10px 10px 10px 0;
 }
 
 div#joblist span.jobtitle {
