@@ -2,14 +2,49 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background: url('../images/paper_fibers.png');
+}
+
+table {
+  padding-bottom: 30px;
 }
 
 #wrapper {
 
 }
 
+.span9 {
+  width: 100% !important;
+}
+
+.fixedwidth {
+  width: 750px;
+}
+
+h2.fixedwidth {
+  padding-bottom: 20px;
+}
+
+.job_description {
+  padding: 0px;
+  width: 200px;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+.job_description_freetext {
+  font-weight: bold;
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+
 .container {
   width: 920px;
+  margin: 0 auto;
+}
+
+.center {
   margin: 0 auto;
 }
 
@@ -27,14 +62,15 @@ a:hover.jobwebsite {
 }
 
 #logo {
-  background-color: green;
-  margin: 0;
-  padding: 1em 55px 1em 1em;
+  width: 980px;
+  margin: 0 auto;
+  font-family: 'Sintony';
 }
 
 #logo h1 {
+  padding: 30px 30px 0px 30px;
   margin: 0;
-  font-size: 2.2em;
+  font-size: 3em;
 }
 
 #logo a {
@@ -47,11 +83,35 @@ p {
 }
 
 #site {
-  margin-bottom: 40px;
+  width: 980px;
+  background: white;
+  margin: 20px auto 40px auto;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#content {
+  padding: 30px;
 }
 
 #footer {
   margin-bottom: 20px;
+}
+
+#footer ul {
+  text-decoration: none;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+#footer ul li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+#footer ul li a {
+  color: #999;
 }
 
 .new-badge {
@@ -95,12 +155,37 @@ p {
   background: #fff;
 }
 
+/* Create Job Links */
+div.createjoblink {
+  padding: 10px 0px;
+  text-align: right;
+  border-bottom: 1px solid #ccc;
+}
+
+div.createjoblink:last-of-type {
+  border-top: 1px solid #ccc;
+  border-bottom: 0px;
+}
+
+div.createjoblink a {
+  color: #3a87ad;
+}
+
+
 /* Listing */
 div#joblist ul,
 div#joblist ul li {
   list-style: none;
   margin: 0px;
-  padding: 10px 10px 10px 0;
+  padding: 10px 10px 10px 30px;
+}
+
+div#joblist ul li a {
+  color: #666 !important;
+}
+
+div#joblist a span.location {
+  color: #00B7FF;
 }
 
 div#joblist span.jobtitle {
@@ -110,3 +195,4 @@ div#joblist span.jobtitle {
 div#joblist {
   padding: 10px 0 10px 0;
 }
+

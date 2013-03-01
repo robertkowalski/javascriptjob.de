@@ -4,23 +4,36 @@ block content
 
   if job
     h2= job.jobtitle
-    span Erstellt: &nbsp;
-    span= locals.formatDate(job.date)
-    br
-    span Firma: &nbsp;
-    span= job.company
-    br
-    span Website: &nbsp;
-    a(class='jobwebsite', href='#{job.website}') #{job.website}
-    br
-    span Ort: &nbsp;
-    span= job.location
-    br
-    span Wie bewerben: &nbsp;
-    span= job.howtoapply
-    div
-      span Beschreibung &nbsp;
-      span!= job.description
+
+    table
+      tr
+        td(class='job_description') Erstellt:
+        td= locals.formatDate(job.date)
+
+      tr
+        td(class='job_description') Firma: &nbsp;
+        td= job.company
+
+      tr
+        td(class='job_description') Website:
+        td
+          a(class='jobwebsite', href='#{job.website}') #{job.website}
+
+      tr
+        td(class='job_description') Ort:
+        td
+          a(class='jobwebsite', href='#{job.website}') #{job.website}
+
+      tr
+        td(class='job_description') Website:
+        td= job.location
+
+      tr
+        td(class='job_description') Wie bewerben:
+        td= job.howtoapply
+
+    div(class='job_description_freetext') Beschreibung:
+    div!= job.description
 
   else
     div.error Kein Job mit dieser Id!

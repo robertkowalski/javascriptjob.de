@@ -1,9 +1,9 @@
 extends ../layout
 
 block content
-  h2 Neues Jobangebot erstellen
+  h2(class='fixedwidth center') Neues Jobangebot erstellen
 
-  form(method='post', action='/jobs')
+  form(class='fixedwidth center', method='post', action='/jobs')
     input(class='span9', type='text', name='jobtitle', placeholder='Jobtitel', value=job.jobtitle)
     br
     input(class='span9', type='text', name='company', placeholder='Firma', value=job.company)
@@ -13,8 +13,6 @@ block content
     input(class='span9', type='text', name='location', placeholder='Ort', value=job.location)
     br
     textarea(class='span9', rows='15', name='description', placeholder='Beschreibung (einfaches HTML erlaubt)')!=job.description
-    br
-    span Einfaches HTML erlaubt
     br
     textarea(class='span9', rows='5', name='howtoapply', placeholder='Wie bewerben')!=job.howtoapply
     br

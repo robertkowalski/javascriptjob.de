@@ -1,33 +1,32 @@
 extends ../layout
 
 block content
-  h2 Jobangebot prüfen
+  h2(class='fixedwidth center') Jobangebot prüfen
 
-  div(class='span9')
-    if job
-      form(method='post', action='/jobs/new/confirm')
-        span Jobtitel: &nbsp;
-        span= job.jobtitle
-        br
-        span Firma: &nbsp;
-        span= job.company
-        br
-        span Website: &nbsp;
-        span= job.website
-        br
-        span Ort: &nbsp;
-        span= job.location
-        br
-        span Beschreibung: &nbsp;
-        span!= job.description
-        br
-        span Wie bewerben: &nbsp;
-        span= job.howtoapply
-        br
-        br
-        input(type='hidden', name='_csrf', value=token)
-        button(type='submit') Submit
+  if job
+    form(class='fixedwidth center', method='post', action='/jobs/new/confirm')
+      span Jobtitel: &nbsp;
+      span= job.jobtitle
+      br
+      span Firma: &nbsp;
+      span= job.company
+      br
+      span Website: &nbsp;
+      span= job.website
+      br
+      span Ort: &nbsp;
+      span= job.location
+      br
+      span Beschreibung: &nbsp;
+      span!= job.description
+      br
+      span Wie bewerben: &nbsp;
+      span= job.howtoapply
+      br
+      br
+      input(type='hidden', name='_csrf', value=token)
+      button(type='submit') Submit
 
-      a(href='/jobs/new') Back
-    else
-      div Error
+    a(href='/jobs/new') Back
+  else
+    div Error
