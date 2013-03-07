@@ -171,6 +171,9 @@ div.createjoblink a {
   color: #3a87ad;
 }
 
+a.backlink {
+  color: #3a87ad;
+}
 
 /* Listing */
 div#joblist ul,

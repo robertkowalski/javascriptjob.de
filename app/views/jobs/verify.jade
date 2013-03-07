@@ -10,7 +10,7 @@ block content
     form(class='fixedwidth center', method='post', action='/jobs/new/confirm')
       input(type='hidden', name='_csrf', value=token)
 
-      a(href='/jobs/new') Back
+      a(class='backlink', href='/jobs/new') Zurück
       button(class='btn', type='submit') Erstellen
 
   else
