@@ -76,7 +76,7 @@ exports.verify = function(req, res) {
     return;
   }
 
-  res.render('jobs/job', {job: req.session.job, backlink: '/jobs/new'});
+  res.render('jobs/verify', {job: req.session.job, backlink: '/jobs/new'});
 };
 
 exports.confirm = function(req, res) {

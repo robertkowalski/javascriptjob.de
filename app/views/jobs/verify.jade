@@ -4,29 +4,14 @@ block content
   h2(class='fixedwidth center') Jobangebot prüfen
 
   if job
-    form(class='fixedwidth center', method='post', action='/jobs/new/confirm')
-      span Jobtitel: &nbsp;
-      span= job.jobtitle
-      br
-      span Firma: &nbsp;
-      span= job.company
-      br
-      span Website: &nbsp;
-      span= job.website
-      br
-      span Ort: &nbsp;
-      span= job.location
-      br
-      span Beschreibung: &nbsp;
-      span!= job.description
-      br
-      span Wie bewerben: &nbsp;
-      span= job.howtoapply
-      br
-      br
-      input(type='hidden', name='_csrf', value=token)
-      button(type='submit') Submit
 
-    a(href='/jobs/new') Back
+    include ../includes/job
+
+    form(class='fixedwidth center', method='post', action='/jobs/new/confirm')
+      input(type='hidden', name='_csrf', value=token)
+
+      a(href='/jobs/new') Back
+      button(type='submit') Erstellen
+
   else
     div Error
