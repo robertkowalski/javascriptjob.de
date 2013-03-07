@@ -35,18 +35,15 @@ app.configure(function() {
 
   if (app.get('env') == 'development' || app.get('env') == 'test') {
     app.locals.pretty = true;
-    app.use(express.errorHandler());
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.set('mongoDb', 'mongodb://localhost/jsjobstest');
     app.use(express.session({store: new RedisStore({host:'127.0.0.1', port: 6379}), secret: 'lolcat' }));
   }
 
   if (app.get('env') == 'production') {
-
+    app.use(express.errorHandler());
     app.use(express.session({store: new RedisStore({host:'127.0.0.1', port: 6379}), secret: 'lolcat' }));
     app.set('mongoDb', 'mongodb://localhost/jsjobstest');
-
-    app.locals.pretty = true;
-    app.use(express.errorHandler());
 
     app.use(express.csrf());
   }
