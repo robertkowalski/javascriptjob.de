@@ -7,11 +7,15 @@ block content
 
     include ../includes/job
 
-    form(class='fixedwidth center', method='post', action='/jobs/new/confirm')
+    form(class='container center', method='post', action='/jobs/new/confirm')
       input(type='hidden', name='_csrf', value=token)
 
-      a(class='backlink', href='/jobs/new') Zurück
-      button(class='btn', type='submit') Erstellen
+      div(id='createjoblinks')
+        ul
+          li
+            a(class='btn', href='/jobs/new') Bearbeiten
+          li
+            button(class='btn', type='submit') Erstellen
 
   else
     div Error
