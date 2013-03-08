@@ -29,6 +29,16 @@ app.configure(function() {
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(i18next.handle);
+
+  app.use(require('stylus').middleware({
+    src: __dirname + '/app/stylus',
+    dest: __dirname + '/public',
+    compress: app.get('env') == 'production',
+    force: app.get('env') == 'development',
+    firebug: app.get('env') == 'development',
+    linenos: app.get('env') == 'development'
+  }));
+
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
