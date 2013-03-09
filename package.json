@@ -24,7 +24,8 @@
     "sinon-chai": "*",
     "sinon": "*",
     "nock": "0.13.4",
-    "supertest": "0.4.x"
+    "supertest": "0.4.x",
+    "run": "*"
   },
   "engine": "node 0.8.20"
 }
