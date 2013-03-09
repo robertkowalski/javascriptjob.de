@@ -9,7 +9,38 @@ require('../helper');
 
 describe('Job', function(done) {
 
-  describe('Job sanitizes its input', function(done) {
+  describe('Bad html (head, body, html-tag) in user input', function(done) {
+
+    it('sanitizes a body tag', function(done) {
+      var job = new Job({
+        jobtitle: '<html><body><head></head></body></html>',
+        company: '<html><body><head></head></body></html>',
+        website: '<html><body><head></head></body></html>',
+        location: '<html><body><head></head></body></html>',
+        description: '<html><body><head></head></body></html>',
+        howtoapply: '<html><body><head></head></body></html>',
+        date: new Date()
+      });
+
+      job.save(function(err, job) {
+        if (err) {
+          console.error(err);
+        }
+        expect(job.jobtitle).to.equal('&lt;html&gt;&lt;body>&lt;head&gt;&lt;/head>&lt;/body&gt;&lt;/html>');
+        expect(job.company).to.equal('&lt;html&gt;&lt;body>&lt;head&gt;&lt;/head>&lt;/body&gt;&lt;/html>');
+        expect(job.website).to.equal('&lt;html&gt;&lt;body>&lt;head&gt;&lt;/head>&lt;/body&gt;&lt;/html>');
+        expect(job.location).to.equal('&lt;html&gt;&lt;body>&lt;head&gt;&lt;/head>&lt;/body&gt;&lt;/html>');
+        expect(job.description).to.equal('&lt;html&gt;&lt;body>&lt;head&gt;&lt;/head>&lt;/body&gt;&lt;/html>');
+        expect(job.howtoapply).to.equal('&lt;html&gt;&lt;body>&lt;head&gt;&lt;/head>&lt;/body&gt;&lt;/html>');
+
+        done();
+      });
+
+    });
+
+  });
+
+  describe('Job and XSS', function(done) {
 
     it('sanitizes ALL the string-inputs', function(done) {
       var xssValues = {};
