@@ -16,7 +16,8 @@
     "express-resource": "1.0.x",
     "connect-redis": "1.4.x",
     "dateformat": "1.0.4-1.2.3",
-    "stylus": "0.32.x"
+    "stylus": "0.32.x",
+    "nodemailer": "0.3.43"
   },
   "devDependencies": {
     "chai": "*",

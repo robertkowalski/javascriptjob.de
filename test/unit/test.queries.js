@@ -10,6 +10,7 @@ var expect = require('chai').expect,
 var helper = require('../helper');
 
 describe('helper/queries/findAllVisibleOrderedByDate', function(done) {
+
   beforeEach(function(done) {
     query = queries.findAllVisibleOrderedByDate;
     /* create2 jobs - 1 not visible, 2 visible */

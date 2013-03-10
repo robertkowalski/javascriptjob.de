@@ -79,39 +79,45 @@ exports.verify = function(req, res) {
   res.render('jobs/verify', {job: req.session.job, backlink: '/jobs/new'});
 };
 
-exports.confirm = function(req, res) {
-  var job = req.session.job,
-      Job,
-      val;
+exports.confirm = function(mailer) {
 
-  if (req.params.job != 'new') {
-    res.send(501);
-    return;
-  }
+  return function(req, res) {
+    var job = req.session.job,
+        Job,
+        val,
+        mail;
 
-  Job = mongoose.model('Job');
-  job = new Job(job);
-
-  job.validate(function(err) {
-    if (err) {
-      Object.keys(err.errors).forEach(function(key) {
-        val = err.errors[key];
-        req.flash('error', val.message);
-      });
-      res.redirect('jobs/new');
-    } else {
-      job.save(function(err) {
-        if (err) {
-          Object.keys(err.errors).forEach(function(key) {
-            val = err.errors[key];
-            req.flash('error', val.message);
-          });
-        } else {
-          res.render('jobs/confirmed');
-        }
-      });
+    if (req.params.job != 'new') {
+      res.send(501);
+      return;
     }
-  });
+
+    Job = mongoose.model('Job');
+    job = new Job(job);
+
+    job.validate(function(err) {
+      if (err) {
+        Object.keys(err.errors).forEach(function(key) {
+          val = err.errors[key];
+          req.flash('error', val.message);
+        });
+        res.redirect('jobs/new');
+      } else {
+        job.save(function(err) {
+          if (err) {
+            Object.keys(err.errors).forEach(function(key) {
+              val = err.errors[key];
+              req.flash('error', val.message);
+            });
+          } else {
+            mail = mailer.createMail(job);
+            mailer.sendMail(mail);
+            res.render('jobs/confirmed');
+          }
+        });
+      }
+    });
+  };
 };
 
 exports.show = function(req, res) {

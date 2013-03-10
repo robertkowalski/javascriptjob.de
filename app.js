@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV == 'test') {
+  require('./app/helper/mocking');
+}
+
 var express = require('express'),
     Resource = require('express-resource'),
     controllers = require('./app/controllers'),
@@ -8,7 +12,9 @@ var express = require('express'),
     flashify = require('flashify'),
     dateFormat = require('dateformat'),
     prettyDate = require('./app/helper/prettyDate'),
-    RedisStore = require('connect-redis')(express);
+    RedisStore = require('connect-redis')(express),
+    mailer = require('./app/helper/mailer'),
+    config = require('./app/helper/conf');
 
 var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
 
@@ -125,7 +131,7 @@ app.all('/*', function(req, res, next) {
 
 var jobs = app.resource('jobs', controllers.jobs);
 jobs.map('get', 'verify', controllers.jobs.verify);
-jobs.map('post', 'confirm', controllers.jobs.confirm);
+jobs.map('post', 'confirm', controllers.jobs.confirm(mailer));
 
 app.get('/', controllers.jobs.index);
 app.get('/impressum', controllers.impressum.index);
