@@ -28,5 +28,12 @@
     "supertest": "0.4.x",
     "run": "*"
   },
-  "engine": "node 0.8.20"
+  "domains": [
+    "javascriptjob.de",
+    "www.javascriptjob.de"
+  ],
+  "subdomain": "jsjob",
+  "engines": {
+    "node": "0.8.x"
+  }
 }
