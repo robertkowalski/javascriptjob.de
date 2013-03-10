@@ -1,9 +1,10 @@
 process.env.NODE_ENV = 'test';
 
+require('../../db');
+
 var expect = require('chai').expect,
     mongoose = require('mongoose'),
-    Job = mongoose.model('Job'),
-    app = require('../../app');
+    Job = mongoose.model('Job');
 
 require('../helper');
 

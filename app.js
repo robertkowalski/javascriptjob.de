@@ -9,7 +9,6 @@ var express = require('express'),
     controllers = require('./app/controllers'),
     http = require('http'),
     path = require('path'),
-    mongoose = require('mongoose'),
     i18next = require('i18next'),
     flashify = require('flashify'),
     dateFormat = require('dateformat'),
@@ -17,13 +16,11 @@ var express = require('express'),
     RedisStore = require('connect-redis')(express),
     mailer = require('./app/helper/mailer');
 
-var debug = !env.NODE_ENV || env.NODE_ENV != 'production';
-
 i18next.init({
   lng: 'de-DE',
   ns: { namespaces: ['common'], defaultNs: 'common'},
   resGetPath: 'app/locales/__lng__/__ns__.json',
-  debug: debug
+  debug: !env.NODE_ENV || env.NODE_ENV != 'production'
 });
 
 var app = module.exports = express();
@@ -53,7 +50,6 @@ app.configure(function() {
   if (app.get('env') == 'development' || app.get('env') == 'test') {
     app.locals.pretty = true;
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    app.set('mongoDb', 'mongodb://localhost/jsjobstest');
     app.use(express.session({store: new RedisStore({host: '127.0.0.1', port: 6379, maxAge: null}), secret: 'lolcat' }));
   }
 
@@ -66,8 +62,6 @@ app.configure(function() {
       db: env.REDIS_DBNAME,
       maxAge: null
     }), secret: env.SESSION_SECRET }));
-
-    app.set('mongoDb', 'mongodb://' + env.MONGO_USER + ':' + env.MONGO_PW + '@' + env.MONGO_HOST + ':' + env.MONGO_PORT + '/' + env.MONGO_DBNAME);
 
     app.use(express.csrf());
   }
@@ -121,14 +115,8 @@ i18next.serveWebTranslate(app, {
   }
 });
 
-
 /* DB / Models */
-if (!mongoose.connection.db) {
-  var db = mongoose.connect(app.get('mongoDb'));
-  db.model('Job', require('./app/models/job'));
-}
-
-
+require('./db');
 
 /* Routing */
 
