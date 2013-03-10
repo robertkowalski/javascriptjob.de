@@ -2,12 +2,13 @@ if job
   h2= job.jobtitle
 
   table
+
     tr
       td(class='job_description') Erstellt:
       td= locals.formatDate(job.date)
 
     tr
-      td(class='job_description') Firma: &nbsp;
+      td(class='job_description') Firma:
       td= job.company
 
     tr
@@ -17,11 +18,6 @@ if job
 
     tr
       td(class='job_description') Ort:
-      td
-        a(class='jobwebsite', href='#{job.website}') #{job.website}
-
-    tr
-      td(class='job_description') Website:
       td= job.location
 
     tr
