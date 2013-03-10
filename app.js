@@ -1,4 +1,6 @@
-if (process.env.NODE_ENV == 'test') {
+var env = process.env;
+
+if (env.NODE_ENV == 'test') {
   require('./app/helper/mocking');
 }
 
@@ -13,10 +15,9 @@ var express = require('express'),
     dateFormat = require('dateformat'),
     prettyDate = require('./app/helper/prettyDate'),
     RedisStore = require('connect-redis')(express),
-    mailer = require('./app/helper/mailer'),
-    config = require('./app/helper/conf');
+    mailer = require('./app/helper/mailer');
 
-var debug = !process.env.NODE_ENV || process.env.NODE_ENV != 'production';
+var debug = !env.NODE_ENV || env.NODE_ENV != 'production';
 
 i18next.init({
   lng: 'de-DE',
@@ -47,19 +48,26 @@ app.configure(function() {
 
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
+  app.use(express.cookieParser(env.COOKIE_SECRET || 'lolcat'));
 
   if (app.get('env') == 'development' || app.get('env') == 'test') {
     app.locals.pretty = true;
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.set('mongoDb', 'mongodb://localhost/jsjobstest');
-    app.use(express.session({store: new RedisStore({host:'127.0.0.1', port: 6379, maxAge: null}), secret: 'lolcat' }));
+    app.use(express.session({store: new RedisStore({host: '127.0.0.1', port: 6379, maxAge: null}), secret: 'lolcat' }));
   }
 
   if (app.get('env') == 'production') {
     app.use(express.errorHandler());
-    app.use(express.session({store: new RedisStore({host:'127.0.0.1', port: 6379, maxAge: null}), secret: 'lolcat' }));
-    app.set('mongoDb', 'mongodb://localhost/jsjobstest');
+    app.use(express.session({store: new RedisStore({
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
+      pass: env.REDIS_AUTH,
+      db: env.REDIS_DBNAME,
+      maxAge: null
+    }), secret: env.SESSION_SECRET }));
+
+    app.set('mongoDb', 'mongodb://' + env.MONGO_USER + ':' + env.MONGO_PW + '@' + env.MONGO_HOST + ':' + env.MONGO_PORT + '/' + env.MONGO_DBNAME);
 
     app.use(express.csrf());
   }

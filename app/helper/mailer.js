@@ -1,14 +1,14 @@
 var nodemailer = require('nodemailer'),
-    config = require('./conf');
+    env = process.env;
 
 exports.createMail = function(job) {
 
   return {
     // sender info
-    from: 'jsjob.de site <' + config.gmail_account + '>',
+    from: 'jsjob.de site <' + env.GMAIL_ACCOUNT + '>',
 
     // Comma separated list of recipients
-    to: '"Admin jsjob.de" <' + config.mail_receiver + '>',
+    to: '"Admin jsjob.de" <' + env.MAIL_RECEIVER + '>',
 
     // Subject of the message
     subject: 'jsjob.de: Ein neuer Job wurde gepostet',
@@ -30,8 +30,8 @@ exports.sendMail = function(mail) {
   var transport = nodemailer.createTransport('SMTP', {
     service: 'Gmail',
     auth: {
-      user: config.gmail_account,
-      pass: config.gmail_password
+      user: env.GMAIL_ACCOUNT,
+      pass: env.GMAIL_PASSWORD
     }
   });
 
