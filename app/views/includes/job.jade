@@ -24,6 +24,12 @@ if job
       td(class='job_description') Wie bewerben:
       td= job.howtoapply
 
+  div(class='job_description_share')
+    if tweettext
+      a(href='http://twitter.com/home?status=#{tweettext}', target='_blank')
+        span(class='tweet-icon')
+        span Tweet Job
+
   div(class='job_description_freetext') Beschreibung:
   div!= job.description
 

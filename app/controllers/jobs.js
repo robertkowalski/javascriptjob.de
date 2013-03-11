@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    csrf = require('../helper/csrf');
+    csrf = require('../helper/csrf'),
+    getTweetText = require('../helper/getTweetText');
 
 /*
 GET    /jobs        #=> index
@@ -76,7 +77,7 @@ exports.verify = function(req, res) {
     return;
   }
 
-  res.render('jobs/verify', {job: req.session.job, backlink: '/jobs/new'});
+  res.render('jobs/verify', {job: req.session.job, backlink: '/jobs/new', tweettext: ''});
 };
 
 exports.confirm = function(mailer) {
@@ -125,7 +126,7 @@ exports.show = function(req, res) {
       findVisibleById = require('../helper/queries').findVisibleById;
 
   findVisibleById(Job, req.param('job'), function(err, job) {
-    res.render('jobs/job', {job: job[0]});
+    res.render('jobs/job', {job: job[0], tweettext: getTweetText(job[0])});
   });
 };
 

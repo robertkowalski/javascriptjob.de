@@ -14,7 +14,9 @@ var express = require('express'),
     dateFormat = require('dateformat'),
     prettyDate = require('./app/helper/prettyDate'),
     RedisStore = require('connect-redis')(express),
-    mailer = require('./app/helper/mailer');
+    mailer = require('./app/helper/mailer'),
+    stylus = require('stylus'),
+    nib = require('nib');
 
 i18next.init({
   lng: 'de-DE',
@@ -34,13 +36,18 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(i18next.handle);
 
-  app.use(require('stylus').middleware({
+  function compile(str, path) {
+   return stylus(str)
+     .set('filename', path)
+     .set('compress', true)
+     .set('force', app.get('env') == 'development')
+     .use(nib());
+  }
+
+  app.use(stylus.middleware({
     src: __dirname + '/app/stylus',
     dest: __dirname + '/public',
-    compress: app.get('env') == 'production',
-    force: app.get('env') == 'development',
-    firebug: app.get('env') == 'development',
-    linenos: app.get('env') == 'development'
+    compile: compile
   }));
 
   app.use(express.static(path.join(__dirname, 'public')));

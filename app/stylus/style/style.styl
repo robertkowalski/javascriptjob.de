@@ -1,8 +1,10 @@
+@import 'nib'
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: url('../images/paper_fibers.png');
+  background-image: url('../images/paper_fibers.png');
 }
 
 table {
@@ -34,10 +36,24 @@ h2.fixedwidth {
 
 .job_description_freetext {
   font-weight: bold;
-  padding-top: 30px;
-  border-top: 1px solid #ccc;
+  padding-top: 15px;
 }
 
+.job_description_share {
+  text-align: right;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+
+.tweet-icon {
+  background-image: url('../images/tweet.png');
+  background-repeat: no-repeat;
+  background-position: 1px 2px;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  padding: 0px 2px 0 3px;
+}
 
 .container {
   width: 920px;
