@@ -143,7 +143,7 @@ describe('Verifying a job', function(done) {
         user1
           .get(helper.address + '/jobs/new')
           .end(function(res) {
-            expect(res.text).to.contain('[removed]alert&#40;0&#41;;[removed]');
+            expect(res.text).to.contain('alert&#40;0&#41;;');
             expect(res.text).to.contain('barme');
             expect(res.text).to.contain('websity');
             expect(res.text).to.contain('locaty');
