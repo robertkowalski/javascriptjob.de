@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/robertkowalski/javascriptjob.de.png?branch=master)](https://travis-ci.org/robertkowalski/javascriptjob.de)
+
 # JS Jobs
 
 ## Update Bootstrap
