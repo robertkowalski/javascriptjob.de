@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 require('../../db');
 
 var expect = require('chai').expect,

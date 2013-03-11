@@ -1,5 +1,4 @@
 process.env.NODE_ENV = 'production';
-process.env.NODE_ENV_SPECIAL = 'test_production';
 
 var expect = require('chai').expect,
     request = require('supertest'),

@@ -1,7 +1,8 @@
+require('./../db');
+
 var mongoose = require('mongoose'),
     Job = mongoose.model('Job'),
     Counter = mongoose.model('Counter');
-
 
 beforeEach(function(done) {
   Job.collection.drop();
