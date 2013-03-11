@@ -80,10 +80,10 @@ describe('app should return http status codes', function(done) {
     });
   });
 
-  describe('if a job was requested', function(done) {
+  describe('if a visible job was requested', function(done) {
     it('should respond with http status 200', function(done) {
       request(app)
-        .get('/jobs/1')
+        .get('/jobs/2')
         .expect(200, done);
     });
   });

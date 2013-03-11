@@ -166,46 +166,6 @@ describe('Job', function(done) {
     });
   });
 
-  it('every job gets an id that is rising', function(done) {
-    var c;
-    Job.count({}, function(err, count) {
-      c = count;
-      var job = new Job({
-        jobtitle: 'foo',
-        company: 'barcompany',
-        website: 'website',
-        location: 'moon',
-        description: 'best jobs on the moon',
-        howtoapply: 'send a pidgin!',
-        date: new Date()
-      });
-
-      var job2 = new Job({
-        jobtitle: 'foo',
-        company: 'barcompany',
-        website: 'website',
-        location: 'moon',
-        description: 'best jobs on the moon',
-        howtoapply: 'send a pidgin!',
-        date: new Date()
-      });
-
-      job.save(function(err, job) {
-        if (err) {
-          console.error(err);
-        }
-        expect(job.id).to.equal(c);
-        job2.save(function(err, job) {
-          if (err) {
-            console.error(err);
-          }
-          expect(job.id).to.equal(c + 1);
-          done();
-        });
-      });
-    });
-  });
-
   describe('required fields', function(done) {
     it('validates required fields', function(done) {
       var job = new Job({s: ''});

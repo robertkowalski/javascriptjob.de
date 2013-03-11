@@ -3,7 +3,6 @@ process.env.NODE_ENV = 'test';
 var expect = require('chai').expect,
     mongoose = require('mongoose'),
     Job = mongoose.model('Job'),
-    app = require('../../app'),
     queries = require('../../app/helper/queries'),
     query;
 
@@ -40,20 +39,22 @@ describe('helper/queries/findAllVisibleOrderedByDate', function(done) {
   });
 });
 
-describe('helper/queries/findVisibleJobById', function(done) {
+describe('helper/queries/findVisibleById', function(done) {
+
   beforeEach(function(done) {
-    query = queries.findVisibleJobById;
+    query = queries.findVisibleById;
     /* create2 jobs - 1 not visible, 2 visible */
     helper.createThreeJobs(done);
   });
 
   it('selects just visible jobs', function(done) {
-    query(1, Job, function(err, res) {
+    query(Job, 2, function(err, res) {
       expect(res[0].company).to.equal('Foo Inc.');
-      query(0, Job, function(err, res) {
+      query(Job, 1, function(err, res) {
         expect(res).to.eql([]);
         done();
       });
     });
   });
+
 });

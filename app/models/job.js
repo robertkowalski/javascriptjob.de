@@ -1,11 +1,10 @@
-var app = require('../../app'),
-    mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
     sanitize = require('validator').sanitize;
 
-var Schema,
-    Job;
+var JobSchema,
+    CounterSchema = mongoose.model('Counter');
 
-Schema = new mongoose.Schema({
+JobSchema = new mongoose.Schema({
   jobtitle: {type: String, required: true},
   company: {type: String, required: true},
   website: {type: String, required: true},
@@ -14,22 +13,29 @@ Schema = new mongoose.Schema({
   howtoapply: {type: String, required: true},
   date: {type: Date, required: true},
   visible: {type: Boolean, default: false},
-  id: {type: Number, required: true}
+  id: {type: Number, unique: true}
 });
 
-Schema.pre('validate', function(next) {
-  var self = this;
-  Job = mongoose.model('Job');
+JobSchema.path('id').index({unique: true});
 
-  Object.keys(Job.schema.paths).forEach(function(value) {
-    if (self[value] && Job.schema.paths[value].instance == 'String') {
+JobSchema.pre('validate', function(next) {
+  var self = this;
+  Object.keys(self.schema.paths).forEach(function(value) {
+    if (self[value] && self.schema.paths[value].instance == 'String') {
       self[value] = sanitize(self[value]).xss();
     }
   });
 
-  Job.count({}, function(err, count) {
-    self.id = count;
+  next();
+});
+
+JobSchema.pre('save', function(next) {
+  var self = this;
+
+  CounterSchema.increment(CounterSchema.ID, function(err, counter) {
+    self.id = counter.next;
     next();
   });
 });
-module.exports = Schema;
+
+module.exports = JobSchema;

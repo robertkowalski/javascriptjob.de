@@ -121,13 +121,10 @@ exports.confirm = function(mailer) {
 };
 
 exports.show = function(req, res) {
-  var Job,
-      findVisibleJobByIdQuery;
+  var Job = mongoose.model('Job'),
+      findVisibleById = require('../helper/queries').findVisibleById;
 
-  Job = mongoose.model('Job');
-  findVisibleJobByIdQuery = require('../helper/queries').findVisibleJobById;
-
-  findVisibleJobByIdQuery(req.param('job'), Job, function(err, job) {
+  findVisibleById(Job, req.param('job'), function(err, job) {
     res.render('jobs/job', {job: job[0]});
   });
 };

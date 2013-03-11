@@ -1,14 +1,14 @@
 var sanitize = require('validator').sanitize
 
-exports.findAllVisibleOrderedByDate = function(Job, cb) {
-  Job
+exports.findAllVisibleOrderedByDate = function(Model, cb) {
+  Model
     .find({ visible: true })
     .sort('-date')
     .exec(cb);
 };
 
-exports.findVisibleJobById = function(id, Job, cb) {
-  Job
+exports.findVisibleById = function(Model, id, cb) {
+  Model
     .find({
       visible: true,
       id: id

@@ -3,8 +3,7 @@ process.env.NODE_ENV = 'test';
 var expect = require('chai').expect,
     mongoose = require('mongoose'),
     Job = mongoose.model('Job'),
-    mailer = require('../../app/helper/mailer'),
-    query;
+    mailer = require('../../app/helper/mailer');
 
 var helper = require('../helper');
 

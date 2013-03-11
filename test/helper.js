@@ -1,10 +1,11 @@
 var mongoose = require('mongoose'),
-    Job;
+    Job = mongoose.model('Job'),
+    Counter = mongoose.model('Counter');
 
 
 beforeEach(function(done) {
-  var Job = mongoose.model('Job');
   Job.collection.drop();
+  Counter.collection.drop();
 
   done();
 });
@@ -15,7 +16,6 @@ exports.address = 'http://127.0.0.1:3000';
 /* create2 jobs - 1 not visible, 2 visible */
 exports.createThreeJobs = function(done) {
 
-  Job = mongoose.model('Job');
   var job1 = new Job({
     jobtitle: 'Nicht sichtbarer Developer',
     company: 'Frontend Corp.',
@@ -70,8 +70,6 @@ exports.createThreeJobs = function(done) {
       });
     });
   });
-
-
 
 
 };
