@@ -1,4 +1,4 @@
-require('../../db');
+require('../../config/db');
 
 var expect = require('chai').expect,
     mongoose = require('mongoose'),

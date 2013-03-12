@@ -11,4 +11,4 @@ var mailerMock = {
   }
 };
 
-mockery.registerMock('./app/helper/mailer', mailerMock);
+mockery.registerMock('./../app/helper/mailer', mailerMock);

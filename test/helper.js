@@ -1,4 +1,4 @@
-require('./../db');
+require('./../config/db');
 
 var mongoose = require('mongoose'),
     Job = mongoose.model('Job'),

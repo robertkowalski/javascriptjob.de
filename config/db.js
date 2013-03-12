@@ -12,6 +12,6 @@ if (env.NODE_ENV == 'production') {
 
 if (!mongoose.connection.db) {
   db = mongoose.connect(url);
-  db.model('Counter', require('./app/models/counter'));
-  db.model('Job', require('./app/models/job'));
+  db.model('Counter', require('./../app/models/counter'));
+  db.model('Job', require('./../app/models/job'));
 }
