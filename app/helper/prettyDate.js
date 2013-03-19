@@ -18,7 +18,7 @@ var relativeDate = (function(undefined){
     [ DAY, 'Stunden', HOUR ],
     [ 2 * DAY, 'gestern' ],
     [ 7 * DAY, 'Tagen', DAY ],
-    [ 1.5 * WEEK, 'vor einer WOche'],
+    [ 1.5 * WEEK, 'vor einer Woche'],
     [ MONTH, 'Wochen', WEEK ],
     [ 1.5 * MONTH, 'vor einem Monat' ],
     [ YEAR, 'Monat', MONTH ],
