@@ -23,6 +23,11 @@ process.env.REDIS_PORT
 process.env.REDIS_AUTH
 process.env.REDIS_DBNAME
 
+process.env.REDIS_ALT_HOST
+process.env.REDIS_ALT_PORT
+process.env.REDIS_ALT_AUTH
+process.env.REDIS_REDIS_ALT_DBNAME
+
 process.env.SESSION_SECRET
 process.env.COOKIE_SECRET
 

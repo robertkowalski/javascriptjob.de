@@ -53,14 +53,28 @@ var path = require('path'),
 
     if (app.get('env') == 'production') {
       app.use(express.errorHandler());
-      app.use(express.session({store: new RedisStore({
+
+      var redis = new RedisStore({
         host: env.REDIS_HOST,
         port: env.REDIS_PORT,
         pass: env.REDIS_AUTH,
         db: env.REDIS_DBNAME,
         maxAge: null
-      }), secret: env.SESSION_SECRET }));
+      });
 
+      if (!redis.client.connected) {
+        console.log('first redis host failed, trying a fallback...');
+
+        redis = new RedisStore({
+          host: env.REDIS_ALT_HOST,
+          port: env.REDIS_ALT_PORT,
+          pass: env.REDIS_ALT_AUTH,
+          db: env.REDIS_DBNAME,
+          maxAge: null
+        });
+      }
+
+      app.use(express.session({store: redis, secret: env.SESSION_SECRET }));
       app.use(express.csrf());
     }
 
@@ -78,9 +92,9 @@ var path = require('path'),
       next();
     });
 
+
     app.use(flashify);
     app.use(app.router);
-
 
     app.use(function(err, req, res, next) {
       if (err.status !== 403) {
