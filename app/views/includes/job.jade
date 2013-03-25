@@ -30,8 +30,8 @@ if job
         span(class='tweet-icon')
         span Tweet Job
 
-  div(class='job_description_freetext') Beschreibung:
-  div!= job.description
+  div(class='job_description_freetext')
+    div!= job.description
 
 else
   div.error Kein Job mit dieser Id!
