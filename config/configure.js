@@ -97,16 +97,13 @@ var path = require('path'),
     app.use(app.router);
 
     app.use(function(err, req, res, next) {
-      if (err.status !== 403) {
-        return next();
+      if (err.status === 403) {
+        res.status(403);
+        res.render('error', {error: '403 error'});
+      } else if (err) {
+        res.status(500);
+        res.render('error', {error: '500 error'});
       }
-      res.status(403);
-      res.render('error', {error: '403 error'});
-    });
-
-    app.use(function(err, req, res, next) {
-      res.status(500);
-      res.render('error', {error: '500 error'});
     });
 
     app.use(function(req, res, next) {
