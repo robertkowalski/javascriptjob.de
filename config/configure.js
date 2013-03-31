@@ -22,6 +22,7 @@ var path = require('path'),
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/../app/views');
     app.set('view engine', 'jade');
+    app.disable('x-powered-by');
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());

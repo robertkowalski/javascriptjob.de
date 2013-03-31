@@ -13,6 +13,17 @@ describe('app should return http status codes', function(done) {
     helper.createThreeJobs(done);
   });
 
+  describe('x-powered-by header', function(done) {
+    it('should be disabled', function() {
+      request(app)
+        .get('/user')
+        .end(function(err, res){
+          if (err) throw err;
+          expect(res.header['x-powered-by']).to.equal(undefined);
+        });
+    });
+  });
+
   describe('if a non existing site was requested', function(done) {
     it('should respond with http status 404', function() {
       request(app)
