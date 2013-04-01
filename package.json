@@ -18,7 +18,8 @@
     "dateformat": "1.0.4-1.2.3",
     "stylus": "0.32.1",
     "nodemailer": "0.3.43",
-    "nib": "0.9.1"
+    "nib": "0.9.1",
+    "connect-multi-redis": "0.1.x"
   },
   "devDependencies": {
     "chai": "1.4.x",

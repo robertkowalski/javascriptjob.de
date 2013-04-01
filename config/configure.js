@@ -9,7 +9,40 @@ var path = require('path'),
     RedisStore = require('connect-redis')(express),
     stylus = require('stylus'),
     nib = require('nib'),
-    prettyDate = require('./../app/helper/prettyDate');
+    prettyDate = require('./../app/helper/prettyDate'),
+    multiRedis = require('connect-multi-redis'),
+    options;
+
+    if (app.get('env') == 'production') {
+      options = {
+        hosts: [
+          new RedisStore({
+            host: env.REDIS_HOST,
+            port: env.REDIS_PORT,
+            pass: env.REDIS_AUTH,
+            db: env.REDIS_DBNAME,
+            maxAge: null
+          }),
+          new RedisStore({
+            host: env.REDIS_ALT_HOST,
+            port: env.REDIS_ALT_PORT,
+            pass: env.REDIS_ALT_AUTH,
+            db: env.REDIS_DBNAME,
+            maxAge: null
+          })
+        ],
+        session_secret: env.SESSION_SECRET
+      };
+    } else {
+      options = {
+        hosts: [
+          new RedisStore({host: '127.0.0.1', port: 6379, maxAge: null})
+        ],
+        session_secret: 'lolcat'
+      };
+    }
+
+  multiRedis = multiRedis(app, express.session, options);
 
   i18next.init({
     lng: 'de-DE',
@@ -26,6 +59,7 @@ var path = require('path'),
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
+    app.use(multiRedis());
     app.use(i18next.handle);
 
     function compile(str, path) {
@@ -49,33 +83,13 @@ var path = require('path'),
     if (app.get('env') == 'development' || app.get('env') == 'test') {
       app.locals.pretty = true;
       app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-      app.use(express.session({store: new RedisStore({host: '127.0.0.1', port: 6379, maxAge: null}), secret: 'lolcat' }));
+      app.use(express.session({store: options.hosts[0], secret: 'lolcat' }));
     }
 
     if (app.get('env') == 'production') {
       app.use(express.errorHandler());
 
-      var redis = new RedisStore({
-        host: env.REDIS_HOST,
-        port: env.REDIS_PORT,
-        pass: env.REDIS_AUTH,
-        db: env.REDIS_DBNAME,
-        maxAge: null
-      });
-
-      if (!redis.client.connected) {
-        console.log('first redis host failed, trying a fallback...');
-
-        redis = new RedisStore({
-          host: env.REDIS_ALT_HOST,
-          port: env.REDIS_ALT_PORT,
-          pass: env.REDIS_ALT_AUTH,
-          db: env.REDIS_DBNAME,
-          maxAge: null
-        });
-      }
-
-      app.use(express.session({store: redis, secret: env.SESSION_SECRET }));
+      app.use(express.session({store: options.hosts[0], secret: env.SESSION_SECRET }));
       app.use(express.csrf());
     }
 
