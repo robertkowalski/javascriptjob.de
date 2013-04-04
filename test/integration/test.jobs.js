@@ -63,11 +63,20 @@ describe('Detaillisting of Jobs', function(done) {
     helper.createThreeJobs(done);
   });
 
-  it('both visible jobs', function(done) {
+  it('it shows visible jobs', function(done) {
       request(helper.address + '/jobs/2', function(err, res, body) {
         expect(body).to.contain('Foo Inc.');
         expect(body).to.contain('moon');
         expect(body).to.contain('Node.js Developer - Backend');
+
+        done();
+      });
+  });
+
+  it('does not show invisible jobs', function(done) {
+      request(helper.address + '/jobs/1', function(err, res, body) {
+        expect(res.statusCode).to.equal(404);
+        expect(body).to.contain('Kein Job mit dieser Id!');
 
         done();
       });

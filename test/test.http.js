@@ -49,6 +49,14 @@ describe('app should return http status codes', function(done) {
     });
   });
 
+  describe('if a job is not visible', function(done) {
+    it('should respond with http status 404', function(done) {
+      supertest(app)
+        .get('/jobs/1')
+        .expect(404, done);
+    });
+  });
+
   describe('if a new job was verified and it is OK', function(done) {
     it('should respond with http status 200', function(done) {
 

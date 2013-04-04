@@ -125,7 +125,12 @@ exports.show = function(req, res) {
   var Job = mongoose.model('Job'),
       findVisibleById = require('../helper/queries').findVisibleById;
 
+
   findVisibleById(Job, req.param('job'), function(err, job) {
+    if (!job[0]) {
+      res.status(404);
+    }
+
     res.render('jobs/job', {job: job[0], tweettext: getTweetText(job[0])});
   });
 };
