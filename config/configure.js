@@ -36,13 +36,13 @@ var path = require('path'),
     } else {
       options = {
         hosts: [
-          new RedisStore({host: '127.0.0.1', port: 6379, maxAge: null})
+          new RedisStore({ host: '127.0.0.1', port: 6379, maxAge: null })
         ],
         session_secret: 'lolcat'
       };
     }
 
-  multiRedis = multiRedis(app, express.session, options);
+  multiRedis = multiRedis(app, express.session);
 
   i18next.init({
     lng: 'de-DE',
@@ -59,7 +59,7 @@ var path = require('path'),
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(multiRedis());
+    app.use(multiRedis(options));
     app.use(i18next.handle);
 
     function compile(str, path) {
@@ -83,13 +83,13 @@ var path = require('path'),
     if (app.get('env') == 'development' || app.get('env') == 'test') {
       app.locals.pretty = true;
       app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-      app.use(express.session({store: options.hosts[0], secret: 'lolcat' }));
+      app.use(express.session({ store: options.hosts[0], secret: 'lolcat' }));
     }
 
     if (app.get('env') == 'production') {
       app.use(express.errorHandler());
 
-      app.use(express.session({store: options.hosts[0], secret: env.SESSION_SECRET }));
+      app.use(express.session({ store: options.hosts[0], secret: env.SESSION_SECRET }));
       app.use(express.csrf());
     }
 
