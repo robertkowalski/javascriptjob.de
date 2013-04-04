@@ -1,5 +1,5 @@
 var expect = require('chai').expect,
-    request = require('superagent'),
+    request = require('request'),
     app = require('../../app'),
     queries = require('../../app/helper/queries');
 
@@ -7,23 +7,20 @@ var helper = require('../helper');
 
 describe('Custom Errorpages', function(done) {
   it('should contain a human readable error code', function(done) {
-    var user1 = request.agent();
-    user1
-      .get(helper.address + '/ThisWillNeverExist')
-      .end(function(res) {
-        expect(res.text).to.contain('404');
-        done();
-      });
+
+    request(helper.address + '/ThisWillNeverExist', function(err, res, body) {
+      expect(body).to.contain('404');
+
+      done();
+    });
   });
 
   it('should contain a link to the index', function(done) {
-    var user1 = request.agent();
-    user1
-      .get(helper.address + '/ThisWillNeverExist')
-      .end(function(res) {
-        expect(res.text).to.contain('<a href="/"');
-        done();
-      });
+    request(helper.address + '/ThisWillNeverExist', function(err, res, body) {
+      expect(body).to.contain('<a href="/"');
+
+      done();
+    });
   });
 
 });

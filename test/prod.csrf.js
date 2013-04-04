@@ -1,31 +1,37 @@
-process.env.NODE_ENV = 'production';
-
 var expect = require('chai').expect,
-    request = require('supertest'),
-    superagent = require('superagent'),
+    request = require('request'),
     app = require('../app'),
-    http = require('http');
+    http = require('http'),
+    querystring = require('querystring');
 
 var helper = require('./helper');
 
 describe('CSRF', function(done) {
 
   it('should use csrf tokens in production', function(done) {
-    var user1 = superagent.agent();
-    user1
-      .post(helper.address + '/jobs')
-      .send({
-        jobtitle: 'foomy',
-        company: 'barme',
-        website: 'websity',
-        location: 'locaty',
-        description: 'descripty',
-        howtoapply: 'howtoapplyy'
-      })
-      .end(function(res) {
-        expect(res.status).to.equal(403);
-        expect(res.text).to.contain('403');
-        done();
-      });
+
+    var data = {
+      jobtitle: 'foo1',
+      company: 'barme1',
+      website: 'websity1',
+      location: 'locaty1',
+      description: 'descripty1',
+      howtoapply: 'howtoapplyy1'
+    };
+
+    request.post({
+        uri: helper.address + '/jobs',
+        headers: {'content-type': 'application/x-www-form-urlencoded'},
+        body: querystring.stringify(data),
+        followRedirect: true,
+        maxRedirects: 10,
+        followAllRedirects: true
+        }, function(err, res, body) {
+          expect(res.statusCode).to.equal(403);
+          expect(body).to.contain('403');
+
+          done();
+    });
+
   });
 });

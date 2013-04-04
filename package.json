@@ -26,8 +26,8 @@
     "mocha": "1.8.1",
     "supertest": "0.4.2",
     "run": "*",
-    "superagent": "0.9.7",
-    "mockery": "1.4.0"
+    "mockery": "1.4.0",
+    "request": "2.16.6"
   },
   "domains": [
     "javascriptjob.de",
