@@ -28,4 +28,12 @@ describe('helper/mailer/getTweetText', function(done) {
       done();
     });
   });
+
+  it('handles empty strings', function(done) {
+    job.save(function(err) {
+      var tweet = getTweetText(undefined);
+      expect(tweet).to.equal('http%3A%2F%2Fjavascriptjob.de');
+      done();
+    });
+  });
 });
