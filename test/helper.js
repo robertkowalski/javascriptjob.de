@@ -2,11 +2,14 @@ require('./../config/db');
 
 var mongoose = require('mongoose'),
     Job = mongoose.model('Job'),
-    Counter = mongoose.model('Counter');
+    Counter = mongoose.model('Counter'),
+    lru = require('../app/controllers/jobs').lru;
 
 beforeEach(function(done) {
   Job.collection.drop();
   Counter.collection.drop();
+
+  lru.reset();
 
   done();
 });

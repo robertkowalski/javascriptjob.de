@@ -18,7 +18,8 @@
     "stylus": "0.32.1",
     "nodemailer": "0.4.1",
     "nib": "0.9.1",
-    "connect-multi-redis": "0.2.x"
+    "connect-multi-redis": "0.2.x",
+    "async-cache": "0.1.1"
   },
   "devDependencies": {
     "chai": "1.4.x",
@@ -41,7 +42,8 @@
     "nodemailer",
     "nib",
     "connect-multi-redis",
-    "mongoose"
+    "mongoose",
+    "async-cache"
   ],
   "domains": [
     "javascriptjob.de",

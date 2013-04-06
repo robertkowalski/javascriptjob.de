@@ -2,7 +2,11 @@ var mongoose = require('mongoose'),
     csrf = require('../helper/csrf'),
     getTweetText = require('../helper/getTweetText'),
     text = require('../locales/de-DE/common.json'),
-    t = require('../helper/translation')(text);
+    t = require('../helper/translation')(text),
+    AsyncCache = require('async-cache'),
+    Job = mongoose.model('Job'),
+    findAllVisibleOrderedByDate = require('../helper/queries').findAllVisibleOrderedByDate,
+    jobs;
 
 /*
 GET    /jobs        #=> index
@@ -14,16 +18,21 @@ POST   /jobs        #=> create
 DELETE /jobs/1      #=> destroy
 */
 
+/* an async LRU-Cache storing the jobs on the index page */
+exports.lru = jobs = new AsyncCache({
+  max: 1000,
+  maxAge: (1000 * 60) * 8,
+  load: function (key, cb) {
+    findAllVisibleOrderedByDate(Job, function(err, jobs) {
+      cb(err, jobs);
+    });
+  }
+});
+
 exports.index = function(req, res) {
-  var Job,
-      query;
-
-  Job = mongoose.model('Job');
-  query = require('../helper/queries').findAllVisibleOrderedByDate;
-
-  query(Job, function(err, jobs) {
+  jobs.get('jobsByDate', function (err, jobs) {
     res.render('index', {joblist: jobs});
-  });
+  })
 };
 
 exports.new = function(req, res) {
@@ -43,11 +52,9 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var Job,
-      job,
+  var job,
       val;
 
-  Job = mongoose.model('Job');
   job = new Job({
     jobtitle: req.param('jobtitle'),
     company: req.param('company'),
@@ -86,7 +93,6 @@ exports.confirm = function(mailer) {
 
   return function(req, res) {
     var job = req.session.job,
-        Job,
         val,
         mail;
 
@@ -95,7 +101,6 @@ exports.confirm = function(mailer) {
       return;
     }
 
-    Job = mongoose.model('Job');
     job = new Job(job);
 
     job.validate(function(err) {
@@ -124,8 +129,7 @@ exports.confirm = function(mailer) {
 };
 
 exports.show = function(req, res) {
-  var Job = mongoose.model('Job'),
-      findVisibleById = require('../helper/queries').findVisibleById;
+  var findVisibleById = require('../helper/queries').findVisibleById;
 
 
   findVisibleById(Job, req.param('job'), function(err, job) {
