@@ -29,6 +29,21 @@
     "mockery": "1.4.0",
     "request": "2.16.6"
   },
+  "bundleDependencies": [
+    "express",
+    "jade",
+    "validator",
+    "flashify",
+    "i18next",
+    "express-resource",
+    "connect-redis",
+    "dateformat",
+    "stylus",
+    "nodemailer",
+    "nib",
+    "connect-multi-redis",
+    "mongoose"
+  ],
   "domains": [
     "javascriptjob.de",
     "www.javascriptjob.de"
