@@ -29,8 +29,8 @@ describe('Counter', function(done) {
   it('increments the field next every time increment is called', function(done) {
     Counter.increment('foo', function(err, foo) {
       expect(foo.next).to.equal(1);
-      Counter.increment('foo', function(err, foo) {
-        expect(foo.next).to.equal(2);
+      Counter.increment('foo', function(err, field) {
+        expect(field.next).to.equal(2);
         done();
       });
     });
