@@ -22,8 +22,9 @@ block content
         each job in joblist
           li
             a(href='/jobs/#{job.id}')
-              span(class='new-badge')
-                span(class='badge badge-info') NEU
+              if (!locals.isOld(job.date))
+                span(class='new-badge')
+                  span(class='badge badge-info') NEU
               span(class='location') #{job.location} &nbsp;
               span #{job.jobtitle} &nbsp;
               span #{job.company} &nbsp;

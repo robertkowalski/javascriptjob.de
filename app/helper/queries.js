@@ -1,4 +1,4 @@
-var sanitize = require('validator').sanitize
+var sanitize = require('validator').sanitize;
 
 exports.findAllVisibleOrderedByDate = function(Model, cb) {
   Model

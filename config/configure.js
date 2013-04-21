@@ -11,6 +11,7 @@ var path = require('path'),
     nib = require('nib'),
     prettyDate = require('./../app/helper/prettyDate'),
     multiRedis = require('connect-multi-redis'),
+    isOld = require('./../app/helper/isOld'),
     options;
 
     if (app.get('env') == 'production') {
@@ -107,6 +108,12 @@ var path = require('path'),
       next();
     });
 
+    app.use(function(req, res, next) {
+      res.locals.isOld = function(date) {
+        return isOld(date);
+      };
+      next();
+    });
 
     app.use(flashify);
     app.use(app.router);
