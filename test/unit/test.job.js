@@ -59,7 +59,7 @@ describe('Job', function(done) {
 
         Object.keys(Job.schema.paths).forEach(function(value) {
           typeof job[value] == 'string' &&
-            expect(job[value]).to.equal('alert&#40;"You have to talk to mister banana"&#41;;');
+            expect(job[value]).to.equal('[removed]alert&#40;"You have to talk to mister banana"&#41;;[removed]');
         });
         done();
       });
@@ -82,7 +82,7 @@ describe('Job', function(done) {
         if (err) {
           console.error(err);
         }
-        expect(job.jobtitle).to.equal('alert&#40;0&#41;;');
+        expect(job.jobtitle).to.equal('[removed]alert&#40;0&#41;;[removed]');
         expect(job.jobtitle).to.not.equal('<script>alert(0);</script>');
         done();
       });
@@ -93,7 +93,7 @@ describe('Job', function(done) {
         if (err) {
           console.error(err);
         }
-        expect(job.company).to.equal('alert&#40;1&#41;;');
+        expect(job.company).to.equal('[removed]alert&#40;1&#41;;[removed]');
         expect(job.company).to.not.equal('<script>alert(1);</script>');
         done();
       });
@@ -104,7 +104,7 @@ describe('Job', function(done) {
         if (err) {
           console.error(err);
         }
-        expect(job.website).to.equal('alert&#40;2&#41;;');
+        expect(job.website).to.equal('[removed]alert&#40;2&#41;;[removed]');
         expect(job.website).to.not.equal('<script>alert(2);</script>');
         done();
       });
@@ -115,7 +115,7 @@ describe('Job', function(done) {
         if (err) {
           console.error(err);
         }
-        expect(job.location).to.equal('alert&#40;3&#41;;');
+        expect(job.location).to.equal('[removed]alert&#40;3&#41;;[removed]');
         expect(job.location).to.not.equal('<script>alert(3);</script>');
         done();
       });
@@ -126,7 +126,7 @@ describe('Job', function(done) {
         if (err) {
           console.error(err);
         }
-        expect(job.description).to.equal('alert&#40;"best job on the moon"&#41;;');
+        expect(job.description).to.equal('[removed]alert&#40;"best job on the moon"&#41;;[removed]');
         expect(job.description).to.not.equal('<script>alert("best job on the moon");</script>');
         done();
       });
@@ -137,7 +137,7 @@ describe('Job', function(done) {
         if (err) {
           console.error(err);
         }
-        expect(job.howtoapply).to.equal('alert&#40;"You have to talk to mister banana"&#41;;');
+        expect(job.howtoapply).to.equal('[removed]alert&#40;"You have to talk to mister banana"&#41;;[removed]');
         expect(job.howtoapply).to.not.equal('<script>alert("You have to talk to mister banana");</script>');
         done();
       });
