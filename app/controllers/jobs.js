@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
     csrf = require('../helper/csrf'),
-    getTweetText = require('../helper/getTweetText');
+    getTweetText = require('../helper/getTweetText'),
+    text = require('../locales/de-DE/common.json'),
+    t = require('../helper/translation')(text);
 
 /*
 GET    /jobs        #=> index
@@ -60,7 +62,7 @@ exports.create = function(req, res) {
     if (err) {
       Object.keys(err.errors).forEach(function(key) {
         val = err.errors[key];
-        req.flash('error', val.message);
+        req.flash('error', t(val.message));
       });
 
       res.redirect('jobs/new');

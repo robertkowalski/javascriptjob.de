@@ -3,7 +3,6 @@ var env = process.env;
 module.exports = function(app, express) {
 
 var path = require('path'),
-    i18next = require('i18next'),
     flashify = require('flashify'),
     dateFormat = require('dateformat'),
     RedisStore = require('connect-redis')(express),
@@ -45,13 +44,6 @@ var path = require('path'),
 
   multiRedis = multiRedis(app, express.session);
 
-  i18next.init({
-    lng: 'de-DE',
-    ns: { namespaces: ['common'], defaultNs: 'common'},
-    resGetPath: __dirname + '/../app/locales/__lng__/__ns__.json',
-    debug: !env.NODE_ENV || env.NODE_ENV != 'production'
-  });
-
   app.configure(function() {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/../app/views');
@@ -61,7 +53,6 @@ var path = require('path'),
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(multiRedis(options));
-    app.use(i18next.handle);
 
     function compile(str, path) {
      return stylus(str)
@@ -133,16 +124,6 @@ var path = require('path'),
       res.render('error', {error: '404 error'});
     });
 
-  });
-
-  i18next.registerAppHelper(app);
-
-  i18next.serveWebTranslate(app, {
-    i18nextWTOptions: {
-      languages: ['de-DE'],
-      namespaces: ['common'],
-      dynamicLoad: false
-    }
   });
 
   return app;
