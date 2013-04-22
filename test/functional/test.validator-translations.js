@@ -7,7 +7,6 @@ var expect = require('chai').expect,
     text = require('../../app/locales/de-DE/common.json'),
     t = require('../../app/helper/translation')(text);
 
-
 require('../helper');
 
 describe('required fields', function(done) {

@@ -179,65 +179,72 @@ describe('Job', function(done) {
     });
 
     it('validates howtoapply', function() {
-      expect(error.errors.howtoapply).to.eql({
-        message: 'Validator \"required\" failed for path howtoapply',
+      expect(error.errors.howtoapply).to.deep.equal({
+        message: 'Validator \"required\" failed for path howtoapply with value `undefined`',
         name: 'ValidatorError',
         path: 'howtoapply',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
 
     it('validates description', function() {
-      expect(error.errors.description).to.eql({
-        message: 'Validator "required" failed for path description',
+      expect(error.errors.description).to.deep.equal({
+        message: 'Validator "required" failed for path description with value `undefined`',
         name: 'ValidatorError',
         path: 'description',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
 
     it('validates location', function() {
-      expect(error.errors.location).to.eql({
-        message: 'Validator "required" failed for path location',
+      expect(error.errors.location).to.deep.equal({
+        message: 'Validator "required" failed for path location with value `undefined`',
         name: 'ValidatorError',
         path: 'location',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
 
     it('validates website', function() {
-      expect(error.errors.website).to.eql({
-        message: 'Validator "required" failed for path website',
+      expect(error.errors.website).to.deep.equal({
+        message: 'Validator "required" failed for path website with value `undefined`',
         name: 'ValidatorError',
         path: 'website',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
 
     it('validates company', function() {
-      expect(error.errors.company).to.eql({
-        message: 'Validator "required" failed for path company',
+      expect(error.errors.company).to.deep.equal({
+        message: 'Validator "required" failed for path company with value `undefined`',
         name: 'ValidatorError',
         path: 'company',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
 
     it('validates website', function() {
-      expect(error.errors.jobtitle).to.eql({
-        message: 'Validator "required" failed for path jobtitle',
+      expect(error.errors.jobtitle).to.deep.equal({
+        message: 'Validator "required" failed for path jobtitle with value `undefined`',
         name: 'ValidatorError',
         path: 'jobtitle',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
 
     it('validates date', function() {
-      expect(error.errors.date).to.eql({
-        message: 'Validator "required" failed for path date',
+      expect(error.errors.date).to.deep.equal({
+        message: 'Validator "required" failed for path date with value `undefined`',
         name: 'ValidatorError',
         path: 'date',
-        type: 'required'
+        type: 'required',
+        value: undefined
       });
     });
   });
