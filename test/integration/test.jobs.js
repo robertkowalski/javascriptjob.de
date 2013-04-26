@@ -169,7 +169,7 @@ describe('Verifying a job', function(done) {
         maxRedirects: 10,
         followAllRedirects: true
         }, function(err, res, body) {
-          expect(body).to.contain('alert&#40;0&#41;;');
+          expect(body).to.contain('[removed]alert&amp;#40;0&amp;#41;;[removed]');
           expect(body).to.contain('barme');
           expect(body).to.contain('websity');
           expect(body).to.contain('locaty');
