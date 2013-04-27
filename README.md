@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/robertkowalski/javascriptjob.de.png?branch=master)](https://travis-ci.org/robertkowalski/javascriptjob.de)
+[![Build Status](https://travis-ci.org/robertkowalski/javascriptjob.de.png?branch=master)](https://travis-ci.org/robertkowalski/javascriptjob.de) [![Dependency Status](https://david-dm.org/robertkowalski/javascriptjob.de.png)](https://david-dm.org/robertkowalski/javascriptjob.de)
+
 
 # JS Jobs
 
