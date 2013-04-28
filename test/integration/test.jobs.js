@@ -9,27 +9,27 @@ var helper = require('../helper');
 describe('Creation of Jobs', function(done) {
   it('should show flash error messages when invalid data is submitted', function(done) {
 
-      var data = {
-        jobtitle: '',
-        company: '',
-        website: '',
-        location: '',
-        description: '',
-        howtoapply: ''
-      };
+    var data = {
+      jobtitle: '',
+      company: '',
+      website: '',
+      location: '',
+      description: '',
+      howtoapply: ''
+    };
 
-      request.post({
-          uri: helper.address + '/jobs',
-          headers: {'content-type': 'application/x-www-form-urlencoded'},
-          body: querystring.stringify(data),
-          followRedirect: true,
-          maxRedirects: 10,
-          followAllRedirects: true
-          }, function(err, res, body) {
-            expect(body).to.contain('<div id="messages"');
-            expect(body).to.contain('<ul class="error"');
-            done();
-      });
+    request.post({
+        uri: helper.address + '/jobs',
+        headers: {'content-type': 'application/x-www-form-urlencoded'},
+        body: querystring.stringify(data),
+        followRedirect: true,
+        maxRedirects: 10,
+        followAllRedirects: true
+        }, function(err, res, body) {
+          expect(body).to.contain('<div id="messages"');
+          expect(body).to.contain('<ul class="error"');
+          done();
+    });
   });
 });
 
@@ -42,18 +42,18 @@ describe('Listing of 3 Jobs - 2 visible', function(done) {
   });
 
   it('both visible jobs', function(done) {
-      request(helper.address + '/jobs', function(err, res, body) {
-        expect(body).to.contain('Foo');
-        expect(body).to.contain('Jimdo GmbH');
+    request(helper.address + '/jobs', function(err, res, body) {
+      expect(body).to.contain('Foo');
+      expect(body).to.contain('Jimdo GmbH');
 
-        expect(body).to.contain('München');
-        expect(body).to.contain('Hamburg');
+      expect(body).to.contain('München');
+      expect(body).to.contain('Hamburg');
 
-        expect(body).to.contain('Node.js Developer - Backend');
-        expect(body).to.contain('Endgegner gesucht');
+      expect(body).to.contain('Node.js Developer - Backend');
+      expect(body).to.contain('Endgegner gesucht');
 
-        done();
-      });
+      done();
+    });
   });
 });
 
@@ -64,22 +64,22 @@ describe('Detaillisting of Jobs', function(done) {
   });
 
   it('it shows visible jobs', function(done) {
-      request(helper.address + '/jobs/2', function(err, res, body) {
-        expect(body).to.contain('Foo Inc.');
-        expect(body).to.contain('moon');
-        expect(body).to.contain('Node.js Developer - Backend');
+    request(helper.address + '/jobs/2', function(err, res, body) {
+      expect(body).to.contain('Foo Inc.');
+      expect(body).to.contain('moon');
+      expect(body).to.contain('Node.js Developer - Backend');
 
-        done();
-      });
+      done();
+    });
   });
 
   it('does not show invisible jobs', function(done) {
-      request(helper.address + '/jobs/1', function(err, res, body) {
-        expect(res.statusCode).to.equal(404);
-        expect(body).to.contain('Kein Job mit dieser Id!');
+    request(helper.address + '/jobs/1', function(err, res, body) {
+      expect(res.statusCode).to.equal(404);
+      expect(body).to.contain('Kein Job mit dieser Id!');
 
-        done();
-      });
+      done();
+    });
   });
 });
 
