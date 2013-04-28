@@ -31,7 +31,12 @@ exports.lru = jobs = new AsyncCache({
 
 exports.index = function(req, res) {
   jobs.get('jobsByDate', function (err, jobs) {
-    res.render('index', {joblist: jobs});
+
+    if (req.route.params.format == 'json') {
+      return res.json(jobs);
+    }
+
+    return res.render('index', {joblist: jobs});
   })
 };
 
@@ -52,7 +57,8 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var job,
+  var format = req.route.params.format,
+      job,
       val;
 
   job = new Job({
@@ -66,16 +72,32 @@ exports.create = function(req, res) {
   });
 
   job.validate(function(err) {
-    if (err) {
-      Object.keys(err.errors).forEach(function(key) {
-        val = err.errors[key];
-        req.flash('error', t(val.message));
-      });
-
-      res.redirect('jobs/new');
+    if (format == 'json') {
+      if (err) {
+        res.status(400);
+        return res.json({status: 'error', action: 'validate'});
+      } else {
+        job.save(function(err) {
+          if (err) {
+            res.status(400);
+            return res.json({status: 'error', action: 'save'});
+          } else {
+            return res.json({status: 'ok'});
+          }
+        });
+      }
     } else {
-      req.session.job = job;
-      res.redirect('jobs/new/verify');
+      if (err) {
+        Object.keys(err.errors).forEach(function(key) {
+          val = err.errors[key];
+          req.flash('error', t(val.message));
+        });
+
+        res.redirect('jobs/new');
+      } else {
+        req.session.job = job;
+        res.redirect('jobs/new/verify');
+      }
     }
   });
 };

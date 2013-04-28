@@ -40,7 +40,11 @@ function createThreeJobs(done) {
       console.error(err);
     }
     createVisibleJobCreatedJustNow(function() {
-      createVisibleJobWithHtmlInSomeYearsOld(done);
+      createVisibleJobWithHtmlInSomeYearsOld(function() {
+        createVisibleJobCreatedJustNowB(function() {
+          createVisibleJobCreatedJustNowC(done)
+        });
+      });
     });
   });
 };
@@ -58,6 +62,46 @@ function createVisibleJobCreatedJustNow(cb) {
   });
 
   job2.save(function(err, job) {
+    if (err) {
+      console.error(err);
+    }
+    cb();
+  });
+}
+
+function createVisibleJobCreatedJustNowB(cb) {
+  var job = new Job({
+    jobtitle: 'Frontend Magician',
+    company: 'Lala Company',
+    website: 'http://google.com',
+    location: 'Bremen',
+    description: 'Backbone, jQuery',
+    howtoapply: 'Ruf an!',
+    date: new Date(),
+    visible: true
+  });
+
+  job.save(function(err, job) {
+    if (err) {
+      console.error(err);
+    }
+    cb();
+  });
+}
+
+function createVisibleJobCreatedJustNowC(cb) {
+  var job = new Job({
+    jobtitle: 'Node.js Developer - Backend',
+    company: 'Foo Inc.',
+    website: 'http://google.com',
+    location: 'München',
+    description: 'best jobs on the moon',
+    howtoapply: 'send a pidgin!',
+    date: new Date(),
+    visible: true
+  });
+
+  job.save(function(err, job) {
     if (err) {
       console.error(err);
     }

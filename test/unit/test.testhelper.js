@@ -19,11 +19,11 @@ describe('testhelper - model preparation', function(done) {
     helper.createThreeJobs(done);
   });
 
-  it('has 3 jobs', function(done) {
+  it('has 5 jobs', function(done) {
     Job
       .find()
       .exec(function(err, res) {
-        expect(res.length).to.equal(3);
+        expect(res.length).to.equal(5);
         done();
       });
   });
@@ -32,7 +32,7 @@ describe('testhelper - model preparation', function(done) {
     Job
       .find({visible: true})
       .exec(function(err, res) {
-        expect(res.length).to.equal(2);
+        expect(res.length).to.equal(4);
         done();
       });
   });

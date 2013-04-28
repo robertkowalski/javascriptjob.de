@@ -18,7 +18,7 @@ describe('helper/queries/findAllVisibleOrderedByDate', function(done) {
 
   it('selects just visible jobs', function(done) {
     query(Job, function(err, res) {
-      expect(res.length).to.equal(2);
+      expect(res.length).to.equal(4);
       done();
     });
   });

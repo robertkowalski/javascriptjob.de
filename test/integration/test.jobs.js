@@ -178,5 +178,70 @@ describe('Verifying a job', function(done) {
           done();
     });
   });
+});
 
+describe('JSON API', function(done) {
+  beforeEach(function(done) {
+    helper = require('../helper');
+    helper.createThreeJobs(done);
+  });
+
+  it('it shows visible jobs, content-type is application/json', function(done) {
+    request(helper.address + '/jobs.json', function(err, res, body) {
+      expect(res.headers['content-type']).to.equal('application/json');
+      expect(body).to.contain('Foo Inc.');
+      done();
+    });
+  });
+
+  it('does not show invisible jobs', function(done) {
+    request(helper.address + '/jobs/1', function(err, res, body) {
+      expect(res.statusCode).to.equal(404);
+      expect(body).to.contain('Kein Job mit dieser Id!');
+
+      done();
+    });
+  });
+
+  it('returns status 400 and a json with "status: error" in case of invalid data', function(done) {
+    request.post({
+        uri: helper.address + '/jobs.json',
+        headers: {'content-type': 'application/x-www-form-urlencoded'},
+        body: querystring.stringify({foo: 'bar'}),
+        followRedirect: true,
+        maxRedirects: 10,
+        followAllRedirects: true
+      }, function(err, res, body) {
+        expect(res.statusCode).to.equal(400);
+        expect(body).to.contain('"status":"error"');
+
+        done();
+    });
+  });
+
+  it('returns status 200 and json with "status: ok" if everything is ok', function(done) {
+
+    var data = {
+      jobtitle: 'foomysss',
+      company: 'barme',
+      website: 'websity',
+      location: 'locaty',
+      description: 'descripty',
+      howtoapply: 'howtoapplyy'
+    };
+
+    request.post({
+        uri: helper.address + '/jobs.json',
+        headers: {'content-type': 'application/x-www-form-urlencoded'},
+        body: querystring.stringify(data),
+        followRedirect: true,
+        maxRedirects: 10,
+        followAllRedirects: true
+      }, function(err, res, body) {
+        expect(res.statusCode).to.equal(200);
+        expect(body).to.contain('"status":"ok"');
+
+        done();
+    });
+  });
 });
