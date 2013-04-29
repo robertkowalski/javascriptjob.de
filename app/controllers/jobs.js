@@ -111,6 +111,7 @@ exports.confirm = function(mailer) {
         });
         res.redirect('jobs/new');
       } else {
+        job.visible = false;
         job.save(function(err) {
           if (err) {
             Object.keys(err.errors).forEach(function(key) {
